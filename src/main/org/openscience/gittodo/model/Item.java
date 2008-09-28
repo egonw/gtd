@@ -66,7 +66,7 @@ public class Item {
 		HIGH,
 		MEDIUM,
 		LOW,
-		LATER
+		DELAYED
 	}
 	
 	private PRIORITY priority;

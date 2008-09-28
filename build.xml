@@ -44,6 +44,8 @@
   	<replace file="build/bin/gtd-list-open-item-ids" token="%PREFIX%" value="${prefix}" />
   	<copy file="src/bin/gtd-list-projects.in" tofile="build/bin/gtd-list-projects" />
   	<replace file="build/bin/gtd-list-projects" token="%PREFIX%" value="${prefix}" />
+  	<copy file="src/bin/gtd-list-project-sums.in" tofile="build/bin/gtd-list-project-sums" />
+  	<replace file="build/bin/gtd-list-project-sums" token="%PREFIX%" value="${prefix}" />
   	<copy file="src/bin/gtd-set-project.in" tofile="build/bin/gtd-set-project" />
   	<replace file="build/bin/gtd-set-project" token="%PREFIX%" value="${prefix}" />
   	<copy file="src/bin/gtd-list-project.in" tofile="build/bin/gtd-list-project" />

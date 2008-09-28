@@ -18,6 +18,8 @@ import org.openscience.gittodo.io.ItemReader;
 public class Repository implements IGTDRepository {
 
 	private String location;
+	private Map<Integer,Item> items;
+	private Map<String,Project> projects;
 
 	public Repository() {
 		Properties reposProps = new Properties();
@@ -38,6 +40,8 @@ public class Repository implements IGTDRepository {
 			e.printStackTrace();
 		}
 		location = reposProps.getProperty("Repository");
+		
+		items = null;
 	}
 	
 	public String getLocation() {
@@ -48,8 +52,27 @@ public class Repository implements IGTDRepository {
 		this.location = location;
 	}
 
+	public Map<String,Project> projects() {
+		if (projects == null) {
+			projects = new HashMap<String,Project>();
+			for (Item item : items().values()) {
+				String projName = item.getProject();
+				Project project = projects.get(projName);
+				if (project == null) {
+					project = new Project();
+					project.setName(projName);
+					projects.put(projName, project);
+				}
+				project.add(item);
+			}
+		}
+		return projects;
+	}
+	
 	public Map<Integer,Item> items() {
-		Map<Integer,Item> items = loadFromDir(new File(getLocation()));
+		if (items == null) {
+			items = loadFromDir(new File(getLocation()));
+		}
 		return items;
 	}
 

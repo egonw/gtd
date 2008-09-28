@@ -12,5 +12,6 @@ public interface IGTDRepository {
 	public String getLocation();
 	public void setLocation(String location);
 	public Map<Integer,Item> items();
+	public Map<String,Project> projects();
 
 }
