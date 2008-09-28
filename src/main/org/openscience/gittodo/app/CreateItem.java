@@ -5,9 +5,12 @@
  */
 package org.openscience.gittodo.app;
 
+import org.openscience.gittodo.io.ItemWriter;
+import org.openscience.gittodo.model.Item;
+
 public class CreateItem {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		if (args.length < 2) {
 			System.out.println("Syntax: create-item <DATE> <TEXT>");
 		}
@@ -19,6 +22,10 @@ public class CreateItem {
 		}
 		System.out.println("Date: " + date);
 		System.out.println("Text: " + text);
+		Item item = new Item(date, text.toString()); 
+		ItemWriter writer = new ItemWriter(item);
+		writer.write();
+		writer.close();
 	}
 	
 }
