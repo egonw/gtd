@@ -22,7 +22,7 @@ public class ListProjects {
 			String project = item.getProject();
 			if (!projects.contains(project)) {
 				projects.add(project);
-				System.out.println(project);
+				if (!"null".equals(project)) System.out.println(project);
 			}
 		}
 	}
