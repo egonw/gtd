@@ -33,6 +33,11 @@
     <javac srcdir="src/main" destdir="${build}" debug="yes">
       <include name="**/*.java"/>
     </javac>
+  	
+  	<copy file="src/bin/gtd-create-item.in" tofile="build/bin/gtd-create-item" />
+  	<replace file="build/bin/gtd-create-item" token="%PREFIX%" value="${prefix}" />
+  	<copy file="src/bin/gtd-list-items.in" tofile="build/bin/gtd-list-items" />
+  	<replace file="build/bin/gtd-list-items" token="%PREFIX%" value="${prefix}" />
   </target>
 
   <target name="jarLibrary">
@@ -65,6 +70,11 @@
         <include name="**/*.java"/>
       </fileset>
     </copy>
+    <copy todir="${dist}/${name}-${version}/src/bin">
+      <fileset dir="src/bin">
+        <include name="**/*.in"/>
+      </fileset>
+    </copy>
 
   	<tar tarfile="${name}-${version}.tar" basedir="${dist}"/>
     <gzip zipfile="${name}-${version}.tar.gz" src="${name}-${version}.tar"/>
@@ -84,11 +94,24 @@
       </fileset>
     </copy>
 
+    <mkdir  dir="${prefix}/share/java"/>
     <copy todir="${prefix}/share/java">
       <fileset dir=".">
         <include name="${target.jar}"/>
       </fileset>
     </copy>
+
+    <mkdir  dir="${prefix}/bin"/>
+    <copy todir="${prefix}/bin">
+      <fileset dir="build/bin">
+        <include name="*"/>
+      </fileset>
+    </copy>
+  	<chmod perm="ugo+rx">
+      <fileset dir="${prefix}/bin">
+      	<include name="gtd*"/>
+      </fileset>
+  	</chmod>
   </target>
 
   <target id="clean" name="clean">
