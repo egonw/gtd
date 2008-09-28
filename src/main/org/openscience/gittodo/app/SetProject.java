@@ -19,11 +19,11 @@ public class SetProject {
 			System.out.println("Syntax: set-project <PROJECT> <ITEM-ID> <ITEM-ID-2> ...");
 			System.exit(0);
 		}
+		IGTDRepository repos = new Repository();
+		Map<Integer,Item> items = repos.items();
 		String project = args[0];
 		for (int i=1; i< args.length; i++) {
 			Integer itemID = Integer.parseInt(args[i]);
-			IGTDRepository repos = new Repository();
-			Map<Integer,Item> items = repos.items();
 			Item item = items.get(itemID);
 			if (item == null) {
 				System.out.println("No item with ID: " + itemID);
