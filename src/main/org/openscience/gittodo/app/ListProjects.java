@@ -18,7 +18,7 @@ public class ListProjects {
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
 		List<String> projects = new ArrayList<String>();
-		for (Item item : repos.items()) {
+		for (Item item : repos.items().values()) {
 			String project = item.getProject();
 			if (!projects.contains(project)) {
 				projects.add(project);

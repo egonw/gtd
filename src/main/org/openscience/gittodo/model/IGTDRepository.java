@@ -5,12 +5,12 @@
  */
 package org.openscience.gittodo.model;
 
-import java.util.List;
+import java.util.Map;
 
 public interface IGTDRepository {
 
 	public String getLocation();
 	public void setLocation(String location);
-	public List<Item> items();
+	public Map<Integer,Item> items();
 
 }

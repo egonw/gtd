@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.openscience.gittodo.io.ItemReader;
@@ -48,17 +48,17 @@ public class Repository implements IGTDRepository {
 		this.location = location;
 	}
 
-	public List<Item> items() {
-		List<Item> items = loadFromDir(new File(getLocation()));
+	public Map<Integer,Item> items() {
+		Map<Integer,Item> items = loadFromDir(new File(getLocation()));
 		return items;
 	}
 
-	private List<Item> loadFromDir(File dir) {
-		List<Item> items = new ArrayList<Item>();
+	private Map<Integer,Item> loadFromDir(File dir) {
+		Map<Integer,Item> items = new HashMap<Integer,Item>();
 		File[] files = dir.listFiles();
 		for (File file : files) {
 			if (file.isDirectory()) {
-				items.addAll(loadFromDir(file));
+				items.putAll(loadFromDir(file));
 			} else if (file.getName().endsWith(".gtd")) {
 				// add file
 				ItemReader reader;
@@ -67,7 +67,7 @@ public class Repository implements IGTDRepository {
 						new FileReader(file)
 					);
 					Item item = reader.read();
-					items.add(item);
+					items.put(item.hashCode(), item);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
