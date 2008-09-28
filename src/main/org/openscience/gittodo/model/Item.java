@@ -10,19 +10,19 @@ import java.util.Map;
 public class Item {
 	
 	protected Item() throws Exception {
-		
+		this.priority = PRIORITY.UNSET;
+		this.state = STATE.OPEN;
 	}
 	
 	public Item(String creationDate, String text) throws Exception {
+		this();
+
 		if (creationDate == null) throw new IllegalArgumentException("The creation date must not be null.");
 		if (text == null) throw new IllegalArgumentException("The text must not be null.");
 		
 		this.creationDate = creationDate;
 		this.text = text;
-		
-		this.priority = PRIORITY.MEDIUM;
-		this.state = STATE.OPEN;
-		
+
 		// trigger creation of a hashcode
 		hashCode();
 	}
@@ -67,6 +67,7 @@ public class Item {
 		NOW,
 		HIGH,
 		MEDIUM,
+		UNSET,
 		LOW,
 		DELAYED
 	}

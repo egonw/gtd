@@ -49,6 +49,8 @@ public class ItemReader {
 				item.setPriority(Item.PRIORITY.DELAYED);
 			} else if ("NOW".equals(state)) {
 				item.setPriority(Item.PRIORITY.NOW);
+			} else if ("UNSET".equals(state)) {
+				item.setPriority(Item.PRIORITY.UNSET);
 			}
 		}
 		return item;
