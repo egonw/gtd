@@ -46,6 +46,8 @@
   	<replace file="build/bin/gtd-list-project" token="%PREFIX%" value="${prefix}" />
     <copy file="src/bin/gtd-done.in" tofile="build/bin/gtd-done" />
     <replace file="build/bin/gtd-done" token="%PREFIX%" value="${prefix}" />
+    <copy file="src/bin/gtd-list-unsorted.in" tofile="build/bin/gtd-list-unsorted" />
+    <replace file="build/bin/gtd-list-unsorted" token="%PREFIX%" value="${prefix}" />
   </target>
 
   <target name="jarLibrary">

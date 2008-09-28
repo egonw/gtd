@@ -16,20 +16,23 @@ public class SetProject {
 	
 	public static void main(String[] args) throws Exception {
 		if (args.length < 2) {
-			System.out.println("Syntax: set-project <ITEM-ID> <PROJECT>");
+			System.out.println("Syntax: set-project <PROJECT> <ITEM-ID> <ITEM-ID-2> ...");
+			System.exit(0);
 		}
-		Integer itemID = Integer.parseInt(args[0]);
-		String project = args[1];
-		IGTDRepository repos = new Repository();
-		Map<Integer,Item> items = repos.items();
-		Item item = items.get(itemID);
-		if (item == null) {
-			System.out.println("No item with ID: " + itemID);
-		} else {
-			item.setProject(project);
-			ItemWriter writer = new ItemWriter(item);
-			writer.write();
-			writer.close();
+		String project = args[0];
+		for (int i=1; i< args.length; i++) {
+			Integer itemID = Integer.parseInt(args[i]);
+			IGTDRepository repos = new Repository();
+			Map<Integer,Item> items = repos.items();
+			Item item = items.get(itemID);
+			if (item == null) {
+				System.out.println("No item with ID: " + itemID);
+			} else {
+				item.setProject(project);
+				ItemWriter writer = new ItemWriter(item);
+				writer.write();
+				writer.close();
+			}
 		}
 	}
 	
