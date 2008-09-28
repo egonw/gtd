@@ -16,20 +16,22 @@ public class SetDone {
 	
 	public static void main(String[] args) throws Exception {
 		if (args.length < 1) {
-			System.out.println("Syntax: set-done <ITEM-ID>");
+			System.out.println("Syntax: set-done <ITEM-ID> <ITEM-ID-2> ...");
 			System.exit(0);
 		}
-		Integer itemID = Integer.parseInt(args[0]);
 		IGTDRepository repos = new Repository();
-		Map<Integer,Item> items = repos.items();
-		Item item = items.get(itemID);
-		if (item == null) {
-			System.out.println("No item with ID: " + itemID);
-		} else {
-			item.setState(Item.STATE.CLOSED);
-			ItemWriter writer = new ItemWriter(item);
-			writer.write();
-			writer.close();
+		for (int i=1; i< args.length; i++) {
+			Integer itemID = Integer.parseInt(args[0]);
+			Map<Integer,Item> items = repos.items();
+			Item item = items.get(itemID);
+			if (item == null) {
+				System.out.println("No item with ID: " + itemID);
+			} else {
+				item.setState(Item.STATE.CLOSED);
+				ItemWriter writer = new ItemWriter(item);
+				writer.write();
+				writer.close();
+			}
 		}
 	}
 	
