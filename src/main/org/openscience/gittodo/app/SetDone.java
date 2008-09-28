@@ -20,13 +20,14 @@ public class SetDone {
 			System.exit(0);
 		}
 		IGTDRepository repos = new Repository();
-		for (int i=1; i< args.length; i++) {
-			Integer itemID = Integer.parseInt(args[0]);
+		for (int i=0; i< args.length; i++) {
+			Integer itemID = Integer.parseInt(args[i]);
 			Map<Integer,Item> items = repos.items();
 			Item item = items.get(itemID);
 			if (item == null) {
 				System.out.println("No item with ID: " + itemID);
 			} else {
+				System.out.println("Closed item: " + itemID);
 				item.setState(Item.STATE.CLOSED);
 				ItemWriter writer = new ItemWriter(item);
 				writer.write();
