@@ -11,3 +11,23 @@ _gtd_list_project()
 }
 
 complete -F _gtd_list_project -o default gtd-list-project
+
+_gtd_set_project()
+{
+    local cur
+
+    cur=${COMP_WORDS[COMP_CWORD]}
+    pos=${COMP_CWORD}
+
+    if [[ "$pos" == 1 ]]; then
+        COMPREPLY=( $( compgen -W '`gtd-list-projects`' -- $cur ) )
+    else 
+        COMPREPLY=( $( compgen -W '`gtd-list-item-ids`' -- $cur ) )
+    fi
+
+    return 0
+}
+
+complete -F _gtd_set_project -o default gtd-set-project
+
+
