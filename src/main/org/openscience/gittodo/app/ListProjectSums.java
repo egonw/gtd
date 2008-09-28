@@ -22,7 +22,7 @@ public class ListProjectSums {
 		projects.addAll(repos.projects().values());
 		ProjectSorter.sortByPriority(projects);
 		for (Project project : projects) {
-			if (project.getName() != null) {
+			if (project.getName() != null && project.getOpenCount() > 0) {
 				StringBuffer result = new StringBuffer();
 				result.append(project.getName());
 				result.append(' ');

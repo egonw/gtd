@@ -14,6 +14,8 @@ public class Project {
 	private Map<Item.PRIORITY,Map<Integer,Item>> itemsByPriority;
 	private String name;
 	private Item.PRIORITY maxPriority = Item.PRIORITY.DELAYED;
+	private int openCount = 0;
+	private int closedCount = 0;
 	
 	protected Project() {
 		itemsByState = new HashMap<Item.STATE,Map<Integer,Item>>();
@@ -39,8 +41,13 @@ public class Project {
 		}
 		itemsByPriority.get(item.getPriority()).put(item.hashCode(), item);
 		
-		if (item.getPriority().ordinal() < maxPriority.ordinal()) {
-			maxPriority = item.getPriority();
+		if (item.getState() == Item.STATE.OPEN) {
+			openCount++;
+			if (item.getPriority().ordinal() < maxPriority.ordinal()) {
+				maxPriority = item.getPriority();
+			}
+		} else {
+			closedCount++;
 		}
 	}
 	
@@ -72,4 +79,11 @@ public class Project {
 		return result;
 	}
 	
+	public int getOpenCount() {
+		return openCount;
+	}
+
+	public int getClosedCount() {
+		return closedCount;
+	}
 }
