@@ -22,7 +22,8 @@ public class CreateItem {
 		}
 		System.out.println("Date: " + date);
 		System.out.println("Text: " + text);
-		Item item = new Item(date, text.toString()); 
+		Item item = new Item(date, text.toString());
+		System.out.println("ID: " + item.hashCode());
 		ItemWriter writer = new ItemWriter(item);
 		writer.write();
 		writer.close();
