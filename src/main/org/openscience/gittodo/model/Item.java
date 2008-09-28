@@ -101,7 +101,7 @@ public class Item {
 	
 	public int hashCode() {
 		if (identifier == null) {
-			identifier = (creationDate + "##" + text).hashCode();
+			identifier = Math.abs((creationDate + "##" + text).hashCode());
 		}
 		return identifier;
 	}
