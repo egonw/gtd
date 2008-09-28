@@ -3,4 +3,4 @@
 JAVA=/usr/bin/java
 CLASSPATH=%PREFIX%/share/java/gittodo.jar
 
-${JAVA} -cp ${CLASSPATH} org.openscience.gittodo.app.ListProjects
+${JAVA} -cp ${CLASSPATH} org.openscience.gittodo.app.ListProjectSums
