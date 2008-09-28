@@ -13,6 +13,10 @@ public class OneLiner {
 		StringBuffer result = new StringBuffer();
 		result.append(item.hashCode());
 		result.append(" ");
+		result.append(item.getState());
+		result.append(" ");
+		result.append(item.getPriority());
+		result.append(" ");
 		result.append(item.getCreationDate());
 		result.append(" ");
 		result.append(item.getText());
