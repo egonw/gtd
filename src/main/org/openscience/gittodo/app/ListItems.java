@@ -16,7 +16,9 @@ public class ListItems {
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
 		for (Item item : repos.items().values()) {
-			System.out.println(OneLiner.format(item));
+			if (item.getState() == Item.STATE.OPEN) {
+				System.out.println(OneLiner.format(item));
+			}
 		}
 	}
 	

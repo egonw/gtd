@@ -29,6 +29,28 @@ public class ItemReader {
 		if (itemProps.containsKey("Project")) {
 			item.setProject(itemProps.getProperty("Project"));
 		}
+		if (itemProps.containsKey("State")) {
+			String state = itemProps.getProperty("State");
+			if ("OPEN".equals(state)) {
+				item.setState(Item.STATE.OPEN);
+			} else if ("CLOSED".equals(state)) {
+				item.setState(Item.STATE.CLOSED);
+			}
+		}
+		if (itemProps.containsKey("Priority")) {
+			String state = itemProps.getProperty("Priority");
+			if ("HIGH".equals(state)) {
+				item.setPriority(Item.PRIORITY.HIGH);
+			} else if ("MEDIUM".equals(state)) {
+				item.setPriority(Item.PRIORITY.MEDIUM);
+			} else if ("LOW".equals(state)) {
+				item.setPriority(Item.PRIORITY.LOW);
+			} else if ("LATER".equals(state)) {
+				item.setPriority(Item.PRIORITY.LATER);
+			} else if ("NOW".equals(state)) {
+				item.setPriority(Item.PRIORITY.NOW);
+			}
+		}
 		return item;
 	}
 	

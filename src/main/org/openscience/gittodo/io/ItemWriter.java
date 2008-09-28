@@ -46,6 +46,8 @@ public class ItemWriter {
 		Properties itemProps = new Properties();
 		itemProps.put("CreationDate", item.getCreationDate());
 		itemProps.put("Text", item.getText());
+		itemProps.put("State", "" + item.getState());
+		itemProps.put("Priority", "" + item.getPriority());
 		if (item.getProject() != null) itemProps.put("Project", item.getProject());
 		itemProps.store(writer, "gittodo v1");
 	}

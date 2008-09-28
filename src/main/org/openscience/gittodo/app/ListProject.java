@@ -21,7 +21,8 @@ public class ListProject {
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
 		for (Item item : repos.items().values()) {
-			if (project.equals(item.getProject())) {
+			if (item.getState() == Item.STATE.OPEN &&
+			    project.equals(item.getProject())) {
 				System.out.println(OneLiner.format(item));
 			}
 		}

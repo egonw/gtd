@@ -17,6 +17,7 @@ public class SetDone {
 	public static void main(String[] args) throws Exception {
 		if (args.length < 1) {
 			System.out.println("Syntax: set-done <ITEM-ID>");
+			System.exit(0);
 		}
 		Integer itemID = Integer.parseInt(args[0]);
 		IGTDRepository repos = new Repository();
