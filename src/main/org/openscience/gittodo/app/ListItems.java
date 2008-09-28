@@ -5,6 +5,7 @@
  */
 package org.openscience.gittodo.app;
 
+import org.openscience.gittodo.format.OneLiner;
 import org.openscience.gittodo.model.IGTDRepository;
 import org.openscience.gittodo.model.Item;
 import org.openscience.gittodo.model.Repository;
@@ -15,11 +16,7 @@ public class ListItems {
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
 		for (Item item : repos.items().values()) {
-			System.out.print(item.hashCode());
-			System.out.print(" ");
-			System.out.print(item.getCreationDate());
-			System.out.print(" ");
-			System.out.println(item.getText());
+			System.out.println(OneLiner.format(item));
 		}
 	}
 	
