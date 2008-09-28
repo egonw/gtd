@@ -1,0 +1,10 @@
+_gtd_list_project()
+{
+    local
+
+    COMPREPLY=( $( gtd-list-projects ) )
+
+    return 0
+}
+
+complete -F _gtd_list_project -o default gtd-list-project
