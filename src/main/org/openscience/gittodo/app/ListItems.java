@@ -16,8 +16,8 @@ public class ListItems {
 		System.out.println("Repository: " + repos.getLocation());
 		for (Item item : repos.items()) {
 			System.out.print(item.getCreationDate());
-			System.out.println(" ");
-			System.out.print(item.getText());
+			System.out.print(" ");
+			System.out.println(item.getText());
 		}
 	}
 	
