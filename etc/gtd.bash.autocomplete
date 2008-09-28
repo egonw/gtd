@@ -1,9 +1,21 @@
+_gtd_list_priority()
+{
+    local cur
+
+    cur=${COMP_WORDS[COMP_CWORD]}
+
+    COMPREPLY=( $( compgen -W 'NOW DELAYED HIGH MEDIUM LOW' -- $cur ) )
+
+    return 0
+}
+
+complete -F _gtd_list_priority -o default gtd-list-priority
+
 _gtd_list_project()
 {
     local cur
 
     cur=${COMP_WORDS[COMP_CWORD]}
-    prev=${COMP_WORDS[COMP_CWORD-1]}
 
     COMPREPLY=( $( compgen -W '`gtd-list-projects`' -- $cur ) )
 

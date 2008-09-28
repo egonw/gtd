@@ -24,7 +24,7 @@ public class ListProjectSums {
 				result.append(' ');
 				for (Item.PRIORITY priority : Item.PRIORITY.values()) {
 					for (Item item : project.items(priority).values()) {
-						result.append(priority.name().charAt(0));
+						result.append(priority.ordinal());
 					}
 				}
 				System.out.println(result.toString());
