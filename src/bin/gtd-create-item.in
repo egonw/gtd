@@ -3,4 +3,4 @@
 JAVA=/usr/bin/java
 CLASSPATH=%PREFIX%/share/java/gittodo.jar
 
-${JAVA} -cp ${CLASSPATH} org.openscience.gittodo.app.CreateItem
+${JAVA} -cp ${CLASSPATH} org.openscience.gittodo.app.CreateItem `date +%Y-%m-%d` $*
