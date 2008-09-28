@@ -26,6 +26,9 @@ public class ItemReader {
 			itemProps.getProperty("CreationDate"),
 			itemProps.getProperty("Text")
 		);
+		if (itemProps.containsKey("Project")) {
+			item.setProject(itemProps.getProperty("Project"));
+		}
 		return item;
 	}
 	
