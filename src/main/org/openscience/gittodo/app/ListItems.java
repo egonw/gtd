@@ -15,6 +15,8 @@ public class ListItems {
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
 		for (Item item : repos.items()) {
+			System.out.print(item.hashCode());
+			System.out.print(" ");
 			System.out.print(item.getCreationDate());
 			System.out.print(" ");
 			System.out.println(item.getText());
