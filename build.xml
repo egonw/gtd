@@ -50,6 +50,8 @@
   	<replace file="build/bin/gtd-set-project" token="%PREFIX%" value="${prefix}" />
   	<copy file="src/bin/gtd-set-priority.in" tofile="build/bin/gtd-set-priority" />
   	<replace file="build/bin/gtd-set-priority" token="%PREFIX%" value="${prefix}" />
+  	<copy file="src/bin/gtd-set-context.in" tofile="build/bin/gtd-set-context" />
+  	<replace file="build/bin/gtd-set-context" token="%PREFIX%" value="${prefix}" />
   	<copy file="src/bin/gtd-list-project.in" tofile="build/bin/gtd-list-project" />
   	<replace file="build/bin/gtd-list-project" token="%PREFIX%" value="${prefix}" />
   	<copy file="src/bin/gtd-list-priority.in" tofile="build/bin/gtd-list-priority" />

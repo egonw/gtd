@@ -45,6 +45,21 @@ public class Item {
 		this.state = state;
 	}
 
+	public static enum CONTEXT {
+		HOME,
+		WORK
+	}
+	
+	private CONTEXT context;
+
+	public CONTEXT getContext() {
+		return context;
+	}
+
+	public void setContext(CONTEXT context) {
+		this.context = context;
+	}
+
 	public static enum TYPE {
 		TODO,
 		TOREAD,

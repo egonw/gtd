@@ -53,6 +53,14 @@ public class ItemReader {
 				item.setPriority(Item.PRIORITY.UNSET);
 			}
 		}
+		if (itemProps.containsKey("Context")) {
+			String context = itemProps.getProperty("Context");
+			if ("HOME".equals(context)) {
+				item.setContext(Item.CONTEXT.HOME);
+			} else if ("WORK".equals(context)) {
+				item.setContext(Item.CONTEXT.WORK);
+			}
+		}
 		return item;
 	}
 	

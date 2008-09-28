@@ -60,6 +60,24 @@ _gtd_set_priority()
 
 complete -F _gtd_set_priority -o default gtd-set-priority
 
+_gtd_set_context()
+{
+    local cur
+
+    cur=${COMP_WORDS[COMP_CWORD]}
+    pos=${COMP_CWORD}
+
+    if [[ "$pos" == 1 ]]; then
+        COMPREPLY=( $( compgen -W 'HOME WORK' -- $cur ) )
+    else 
+        COMPREPLY=( $( compgen -W '`gtd-list-item-ids`' -- $cur ) )
+    fi
+
+    return 0
+}
+
+complete -F _gtd_set_context -o default gtd-set-context
+
 _gtd_done()
 {
     local cur
