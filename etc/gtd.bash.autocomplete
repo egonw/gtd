@@ -1,8 +1,11 @@
 _gtd_list_project()
 {
-    local
+    local cur
 
-    COMPREPLY=( $( gtd-list-projects ) )
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+
+    COMPREPLY=( $( compgen -W '`gtd-list-projects`' -- $cur ) )
 
     return 0
 }

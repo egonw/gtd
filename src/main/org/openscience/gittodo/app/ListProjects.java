@@ -16,7 +16,6 @@ public class ListProjects {
 	
 	public static void main(String[] args) {
 		IGTDRepository repos = new Repository();
-		System.out.println("Repository: " + repos.getLocation());
 		List<String> projects = new ArrayList<String>();
 		for (Item item : repos.items().values()) {
 			String project = item.getProject();
