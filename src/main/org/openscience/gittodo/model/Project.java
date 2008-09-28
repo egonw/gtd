@@ -13,6 +13,7 @@ public class Project {
 	private Map<Item.STATE,Map<Integer,Item>> itemsByState;
 	private Map<Item.PRIORITY,Map<Integer,Item>> itemsByPriority;
 	private String name;
+	private Item.PRIORITY maxPriority = Item.PRIORITY.DELAYED;
 	
 	protected Project() {
 		itemsByState = new HashMap<Item.STATE,Map<Integer,Item>>();
@@ -37,6 +38,14 @@ public class Project {
 			itemsByPriority.put(item.getPriority(), new HashMap<Integer,Item>());
 		}
 		itemsByPriority.get(item.getPriority()).put(item.hashCode(), item);
+		
+		if (item.getPriority().ordinal() < maxPriority.ordinal()) {
+			maxPriority = item.getPriority();
+		}
+	}
+	
+	public Item.PRIORITY getMaxPriority() {
+		return maxPriority;
 	}
 	
 	public Map<Integer,Item> items() {

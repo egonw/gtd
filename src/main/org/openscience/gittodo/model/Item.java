@@ -29,6 +29,7 @@ public class Item {
 	
 	private Integer identifier;
 
+	/** Allowed item states. */
 	public static enum STATE {
 		CLOSED,
 		OPEN
@@ -61,6 +62,7 @@ public class Item {
 		return (types.containsKey(type) ? types.get(type) : false);
 	}
 	
+	/** Allowed priorities sorted in decreasing priority. **/
 	public static enum PRIORITY {
 		NOW,
 		HIGH,
