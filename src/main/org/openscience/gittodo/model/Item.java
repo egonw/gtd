@@ -79,7 +79,7 @@ public class Item {
 	
 	/** Allowed priorities sorted in decreasing priority. **/
 	public static enum PRIORITY {
-		NOW,
+		TODAY,
 		HIGH,
 		MEDIUM,
 		UNSET,

@@ -18,9 +18,9 @@ public class ListPriority {
 			System.exit(0);
 		}
 		String priorityString = args[0];
-		Item.PRIORITY priority = Item.PRIORITY.NOW;
-		if ("NOW".equals(priorityString)) {
-			priority = Item.PRIORITY.NOW;
+		Item.PRIORITY priority = Item.PRIORITY.TODAY;
+		if ("TODAY".equals(priorityString)) {
+			priority = Item.PRIORITY.TODAY;
 		} else if ("DELAYED".equals(priorityString)) {
 			priority = Item.PRIORITY.DELAYED;
 		} else if ("HIGH".equals(priorityString)) {
