@@ -7,6 +7,8 @@ package org.openscience.gittodo.model;
 
 import java.util.Map;
 
+import org.openscience.gittodo.io.ItemReader;
+
 public class Item {
 	
 	protected Item() throws Exception {
@@ -27,6 +29,20 @@ public class Item {
 		hashCode();
 	}
 	
+	/**
+	 * Method primarily used by the {@link ItemReader} to set values.
+	 */
+	public Item(String creationDate, String text, STATE state, PRIORITY priority,
+			CONTEXT context, Integer hashcode, String project) {
+		this.creationDate = creationDate;
+		this.text = text;
+		this.state = state;
+		this.priority = priority;
+		this.context = context;
+		this.identifier = hashcode;
+		this.project = project;
+	}
+	
 	private Integer identifier;
 
 	/** Allowed item states. */
@@ -42,6 +58,7 @@ public class Item {
 	}
 
 	public void setState(STATE state) {
+		failWhenItemClosed();
 		this.state = state;
 	}
 
@@ -57,6 +74,7 @@ public class Item {
 	}
 
 	public void setContext(CONTEXT context) {
+		failWhenItemClosed();
 		this.context = context;
 	}
 
@@ -70,9 +88,18 @@ public class Item {
 	private Map<TYPE, Boolean> types;
 	
 	public void set(TYPE type, boolean value) {
+		failWhenItemClosed();
 		types.put(type, value);
 	}
 	
+	private void failWhenItemClosed() {
+		if (getState() == STATE.CLOSED) {
+			throw new RuntimeException(
+				"You cannot modify a closed item."
+			);
+		}
+	}
+
 	public boolean is(TYPE type) {
 		return (types.containsKey(type) ? types.get(type) : false);
 	}
@@ -94,6 +121,7 @@ public class Item {
 	}
 
 	public void setPriority(PRIORITY priority) {
+		failWhenItemClosed();
 		this.priority = priority;
 	}
 	
@@ -104,6 +132,7 @@ public class Item {
 	}
 
 	public void setText(String text) {
+		failWhenItemClosed();
 		this.text = text;
 	}
 
@@ -114,6 +143,7 @@ public class Item {
 	}
 
 	public void setCreationDate(String creationDate) {
+		failWhenItemClosed();
 		this.creationDate = creationDate;
 	}
 	
@@ -131,6 +161,7 @@ public class Item {
 	}
 
 	public void setProject(String project) {
+		failWhenItemClosed();
 		this.project = project;
 	}
 	

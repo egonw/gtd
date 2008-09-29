@@ -85,9 +85,11 @@ public class Repository implements IGTDRepository {
 			} else if (file.getName().endsWith(".gtd")) {
 				// add file
 				ItemReader reader;
+				Integer hashcode = Integer.parseInt(file.getName().substring(0, file.getName().indexOf(".gtd")));
 				try {
 					reader = new ItemReader(
-						new FileReader(file)
+						new FileReader(file),
+						hashcode
 					);
 					Item item = reader.read();
 					items.put(item.hashCode(), item);
