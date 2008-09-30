@@ -64,6 +64,8 @@
     <replace file="build/bin/gtd-show-repository" token="%PREFIX%" value="${prefix}" />
     <copy file="src/bin/gtd-commit.in" tofile="build/bin/gtd-commit" />
     <replace file="build/bin/gtd-commit" token="%PREFIX%" value="${prefix}" />
+    <copy file="src/bin/gtd-diff.in" tofile="build/bin/gtd-diff" />
+    <replace file="build/bin/gtd-diff" token="%PREFIX%" value="${prefix}" />
   </target>
 
   <target name="jarLibrary">
