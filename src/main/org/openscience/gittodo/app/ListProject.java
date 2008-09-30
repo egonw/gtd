@@ -5,10 +5,15 @@
  */
 package org.openscience.gittodo.app;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openscience.gittodo.format.OneLiner;
 import org.openscience.gittodo.model.IGTDRepository;
 import org.openscience.gittodo.model.Item;
+import org.openscience.gittodo.model.Project;
 import org.openscience.gittodo.model.Repository;
+import org.openscience.gittodo.sort.ItemSorter;
 
 public class ListProject {
 	
@@ -17,13 +22,18 @@ public class ListProject {
 			System.out.println("Syntax: list-project <PROJECT>");
 			System.exit(0);
 		}
-		String project = args[0];
+		String projectName = args[0];
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
-		for (Item item : repos.items().values()) {
-			if (item.getState() == Item.STATE.OPEN &&
-			    project.equals(item.getProject())) {
-				System.out.println(OneLiner.format(item));
+		Project project = repos.projects().get(projectName);
+		if (project != null) {
+			List<Item> items = new ArrayList<Item>();
+			items.addAll(project.items().values());
+			ItemSorter.sortByPriority(items);
+			for (Item item : items) {
+				if (item.getState() == Item.STATE.OPEN) {
+					System.out.println(OneLiner.format(item));
+				}
 			}
 		}
 	}
