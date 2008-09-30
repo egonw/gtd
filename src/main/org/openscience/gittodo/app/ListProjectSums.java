@@ -21,10 +21,18 @@ public class ListProjectSums {
 		List<Project> projects = new ArrayList<Project>();
 		projects.addAll(repos.projects().values());
 		ProjectSorter.sortByPriority(projects);
+		// first determine column width for the project titles
+		int maxLength = 0;
+		for (Project project : projects) {
+			if (maxLength < (project.getName() == null ? 0 : project.getName().length())) {
+				maxLength = project.getName().length();
+			}
+		}
+		// now output the projects
 		for (Project project : projects) {
 			if (project.getName() != null && project.getOpenCount() > 0) {
 				StringBuffer result = new StringBuffer();
-				result.append(project.getName());
+				result.append(fillWithSpaces(project.getName(), maxLength));
 				result.append(' ');
 				for (Item.PRIORITY priority : Item.PRIORITY.values()) {
 					for (Item item : project.items(priority).values()) {
@@ -36,6 +44,13 @@ public class ListProjectSums {
 				System.out.println(result.toString());
 			}
 		}
+	}
+	
+	public static String fillWithSpaces(String start, int width) {
+		while (start.length() < width) {
+			start = start + " ";
+		}
+		return start;
 	}
 	
 }
