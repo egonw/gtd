@@ -3,4 +3,5 @@
 cd `gtd-show-repository`
 git add .
 git status | grep "new file"
+git status | grep "new file" | cut -d':' -f2 | xargs cat
 git diff
