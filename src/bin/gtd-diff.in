@@ -1,4 +1,6 @@
 #!/bin/sh
 
 cd `gtd-show-repository`
+git add .
+git status | grep "new file"
 git diff
