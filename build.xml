@@ -60,6 +60,10 @@
     <replace file="build/bin/gtd-done" token="%PREFIX%" value="${prefix}" />
     <copy file="src/bin/gtd-list-unsorted.in" tofile="build/bin/gtd-list-unsorted" />
     <replace file="build/bin/gtd-list-unsorted" token="%PREFIX%" value="${prefix}" />
+    <copy file="src/bin/gtd-show-repository.in" tofile="build/bin/gtd-show-repository" />
+    <replace file="build/bin/gtd-show-repository" token="%PREFIX%" value="${prefix}" />
+    <copy file="src/bin/gtd-commit.in" tofile="build/bin/gtd-commit" />
+    <replace file="build/bin/gtd-commit" token="%PREFIX%" value="${prefix}" />
   </target>
 
   <target name="jarLibrary">
