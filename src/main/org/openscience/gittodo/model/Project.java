@@ -88,7 +88,11 @@ public class Project {
 	}
 
 	public int itemCount(Item.PRIORITY priority) {
-		return itemsByPriority.get(priority) == null ? 0 :
-			itemsByPriority.get(priority).size();
+		if (itemsByPriority.get(priority) == null) return 0;
+		int count = 0;
+		for (Item item : itemsByPriority.get(priority).values()) {
+			if (item.getState() == Item.STATE.OPEN) count++;
+		}
+		return count;
 	}
 }
