@@ -86,4 +86,9 @@ public class Project {
 	public int getClosedCount() {
 		return closedCount;
 	}
+
+	public int itemCount(Item.PRIORITY priority) {
+		return itemsByPriority.get(priority) == null ? 0 :
+			itemsByPriority.get(priority).size();
+	}
 }
