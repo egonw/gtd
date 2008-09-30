@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd `gtd-show-repository`
+git add .
+git commit -m "$*"
