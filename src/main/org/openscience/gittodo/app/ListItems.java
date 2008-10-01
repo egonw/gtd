@@ -31,7 +31,7 @@ public class ListItems {
 		ItemSorter.sortByPriority(items);
 		for (Item item : items) {
 			if (item.getState() == Item.STATE.OPEN &&
-				context == null ? true : item.getContext() == context) {
+				(context == null ? true : item.getContext() == context)) {
 				System.out.println(OneLiner.format(item));
 			}
 		}
