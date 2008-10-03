@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src/main"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/usr/share/java/commons-cli-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

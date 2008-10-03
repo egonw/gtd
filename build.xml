@@ -36,6 +36,9 @@
   <target name="build">
     <mkdir dir="${build}"/>
     <javac srcdir="src/main" destdir="${build}" debug="yes">
+      <classpath>
+        <fileset file="${commons-cli-1.0.jar}"/>
+      </classpath>
       <include name="**/*.java"/>
     </javac>
   	
