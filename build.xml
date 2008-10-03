@@ -16,6 +16,9 @@
   <!-- building properties -->
   <property name="dist" value="dist"/>
 
+  <!-- dependencies -->
+  <property name="commons-cli-1.0.jar" value="commons-cli-1.0.jar"/>
+
   <!-- folders -->
   <property name="build" value="build"/>
 
@@ -24,6 +27,8 @@
     <echo message="Project: ${name}"/>
     <echo message="Version: ${version}"/>
     <echo message="Prefix: ${prefix}"/>
+    <echo/>
+    <echo message="commons-cli-1.0.jar: ${commons-cli-1.0.jar}"/>
   </target>
 
   <target id="make" name="make" depends="build, jarLibrary"/>
