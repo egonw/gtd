@@ -34,38 +34,28 @@
       <include name="**/*.java"/>
     </javac>
   	
-  	<copy file="src/bin/gtd-create-item.in" tofile="build/bin/gtd-create-item" />
-  	<replace file="build/bin/gtd-create-item" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-items.in" tofile="build/bin/gtd-list-items" />
-  	<replace file="build/bin/gtd-list-items" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-item-ids.in" tofile="build/bin/gtd-list-item-ids" />
-  	<replace file="build/bin/gtd-list-item-ids" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-open-item-ids.in" tofile="build/bin/gtd-list-open-item-ids" />
-  	<replace file="build/bin/gtd-list-open-item-ids" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-projects.in" tofile="build/bin/gtd-list-projects" />
-  	<replace file="build/bin/gtd-list-projects" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-project-sums.in" tofile="build/bin/gtd-list-project-sums" />
-  	<replace file="build/bin/gtd-list-project-sums" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-set-project.in" tofile="build/bin/gtd-set-project" />
-  	<replace file="build/bin/gtd-set-project" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-set-priority.in" tofile="build/bin/gtd-set-priority" />
-  	<replace file="build/bin/gtd-set-priority" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-set-context.in" tofile="build/bin/gtd-set-context" />
-  	<replace file="build/bin/gtd-set-context" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-project.in" tofile="build/bin/gtd-list-project" />
-  	<replace file="build/bin/gtd-list-project" token="%PREFIX%" value="${prefix}" />
-  	<copy file="src/bin/gtd-list-priority.in" tofile="build/bin/gtd-list-priority" />
-  	<replace file="build/bin/gtd-list-priority" token="%PREFIX%" value="${prefix}" />
-    <copy file="src/bin/gtd-done.in" tofile="build/bin/gtd-done" />
-    <replace file="build/bin/gtd-done" token="%PREFIX%" value="${prefix}" />
-    <copy file="src/bin/gtd-list-unsorted.in" tofile="build/bin/gtd-list-unsorted" />
-    <replace file="build/bin/gtd-list-unsorted" token="%PREFIX%" value="${prefix}" />
-    <copy file="src/bin/gtd-show-repository.in" tofile="build/bin/gtd-show-repository" />
-    <replace file="build/bin/gtd-show-repository" token="%PREFIX%" value="${prefix}" />
-    <copy file="src/bin/gtd-commit.in" tofile="build/bin/gtd-commit" />
-    <replace file="build/bin/gtd-commit" token="%PREFIX%" value="${prefix}" />
-    <copy file="src/bin/gtd-diff.in" tofile="build/bin/gtd-diff" />
-    <replace file="build/bin/gtd-diff" token="%PREFIX%" value="${prefix}" />
+    <antcall target="process.in"><param name="file" value="gtd-create-item"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-items"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-item-ids"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-open-item-ids"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-projects"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-project-sums"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-set-project"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-set-priority"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-set-context"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-project"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-priority"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-done"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-list-unsorted"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-show-repository"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-commit"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-diff"/></antcall>
+  </target>
+
+  <target id="process.in" name="process.in">
+    <echo message="Converting ${file}.in to ${file}..."/>
+    <copy file="src/bin/${file}.in" tofile="build/bin/${file}" />
+    <replace file="build/bin/${file}" token="%PREFIX%" value="${prefix}" />
   </target>
 
   <target name="jarLibrary">
