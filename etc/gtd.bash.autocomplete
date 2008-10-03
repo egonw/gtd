@@ -91,3 +91,19 @@ _gtd_done()
 
 complete -F _gtd_done -o default gtd-done
 
+_gtd_list_items()
+{
+    local cur
+
+    cur=${COMP_WORDS[COMP_CWORD]}
+    pos=${COMP_CWORD}
+
+    if [[ "$pos" == 1 ]]; then
+        COMPREPLY=( $( compgen -W '--home --work' -- $cur ) )
+    fi
+
+    return 0
+}
+
+complete -F _gtd_list_items -o default gtd-list-items
+
