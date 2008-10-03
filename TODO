@@ -3,5 +3,6 @@ Repository: /home/egonw/var/gtd
   1673336285   OPEN  MEDIUM      2008-09-28 Add colors to gtd-list-project-sums output
    618731943   OPEN  MEDIUM      2008-09-28 Add a gtd-rename-project cmd util
    601470003   OPEN   UNSET      2008-09-29 Clash detection in Item.hashCode
+   616007927   OPEN   UNSET      2008-10-03 Add LGPL v3 license copy.
   2138796721   OPEN   UNSET      2008-09-30 Add schedule support.
   1537331891   OPEN   UNSET      2008-09-28 set-X should only save if property really changed
