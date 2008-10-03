@@ -61,6 +61,7 @@
     <echo message="Converting ${file}.in to ${file}..."/>
     <copy file="src/bin/${file}.in" tofile="build/bin/${file}" />
     <replace file="build/bin/${file}" token="%PREFIX%" value="${prefix}" />
+    <replace file="build/bin/${file}" token="%commons-cli-1.0.jar%" value="${commons-cli-1.0.jar}" />
   </target>
 
   <target name="jarLibrary">
