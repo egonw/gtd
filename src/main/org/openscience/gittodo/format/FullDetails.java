@@ -17,6 +17,7 @@ public class FullDetails {
 		appendField(result, "State", ""+item.getState());
 		appendField(result, "Priority", ""+item.getPriority());
 		appendField(result, "Context", (item.getContext() == null ? "" : ""+item.getContext()));
+		appendField(result, "Project", (item.getProject() == null ? "" : ""+item.getProject()));
 		return result.toString();
 	}
 	
