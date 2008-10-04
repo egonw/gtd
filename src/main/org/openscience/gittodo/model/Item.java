@@ -107,6 +107,7 @@ public class Item {
 	/** Allowed priorities sorted in decreasing priority. **/
 	public static enum PRIORITY {
 		TODAY,
+		URGENT,
 		HIGH,
 		MEDIUM,
 		UNSET,

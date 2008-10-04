@@ -40,6 +40,8 @@ public class ItemReader {
 				priority = Item.PRIORITY.HIGH;
 			} else if ("MEDIUM".equals(priorityStr)) {
 				priority = Item.PRIORITY.MEDIUM;
+			} else if ("URGENT".equals(priorityStr)) {
+				priority = Item.PRIORITY.URGENT;
 			} else if ("LOW".equals(priorityStr)) {
 				priority = Item.PRIORITY.LOW;
 			} else if ("DELAYED".equals(priorityStr)) {
