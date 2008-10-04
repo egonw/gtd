@@ -107,3 +107,19 @@ _gtd_list_items()
 
 complete -F _gtd_list_items -o default gtd-list-items
 
+_gtd_list_item()
+{
+    local cur
+
+    cur=${COMP_WORDS[COMP_CWORD]}
+    pos=${COMP_CWORD}
+
+    if [[ "$pos" == 1 ]]; then
+        COMPREPLY=( $( compgen -W '`gtd-list-item-ids`' -- $cur ) )
+    fi
+
+    return 0
+}
+
+complete -F _gtd_list_item -o default gtd-list-item
+
