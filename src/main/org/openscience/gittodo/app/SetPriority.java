@@ -31,6 +31,8 @@ public class SetPriority {
 			priority = Item.PRIORITY.HIGH;
 		} else if ("MEDIUM".equals(priorityString)) {
 			priority = Item.PRIORITY.MEDIUM;
+		} else if ("URGENT".equals(priorityString)) {
+			priority = Item.PRIORITY.URGENT;
 		} else if ("LOW".equals(priorityString)) {
 			priority = Item.PRIORITY.LOW;
 		} else {
