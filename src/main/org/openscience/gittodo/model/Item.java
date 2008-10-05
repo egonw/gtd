@@ -11,9 +11,12 @@ import org.openscience.gittodo.io.ItemReader;
 
 public class Item {
 	
+	private boolean hasChanged;
+	
 	protected Item() throws Exception {
 		this.priority = PRIORITY.UNSET;
 		this.state = STATE.OPEN;
+		hasChanged = false;
 	}
 	
 	public Item(String creationDate, String text) throws Exception {
@@ -34,6 +37,7 @@ public class Item {
 	 */
 	public Item(String creationDate, String text, STATE state, PRIORITY priority,
 			CONTEXT context, Integer hashcode, String project) {
+		this.hasChanged = false;
 		this.creationDate = creationDate;
 		this.text = text;
 		this.state = state;
@@ -59,7 +63,10 @@ public class Item {
 
 	public void setState(STATE state) {
 		failWhenItemClosed();
-		this.state = state;
+		if (this.state != state) {
+			this.state = state;
+			hasChanged = true;
+		}
 	}
 
 	public static enum CONTEXT {
@@ -75,7 +82,10 @@ public class Item {
 
 	public void setContext(CONTEXT context) {
 		failWhenItemClosed();
-		this.context = context;
+		if (this.context != context) {
+			this.context = context;
+			hasChanged = true;
+		}
 	}
 
 	public static enum TYPE {
@@ -123,7 +133,10 @@ public class Item {
 
 	public void setPriority(PRIORITY priority) {
 		failWhenItemClosed();
-		this.priority = priority;
+		if (this.priority != priority) {
+			this.priority = priority;
+			hasChanged = true;
+		}
 	}
 	
 	private String text;
@@ -134,7 +147,10 @@ public class Item {
 
 	public void setText(String text) {
 		failWhenItemClosed();
-		this.text = text;
+		if (!this.text.equals(text)) {
+			this.text = text;
+			hasChanged = true;
+		}
 	}
 
 	private String creationDate;
@@ -143,11 +159,6 @@ public class Item {
 		return creationDate;
 	}
 
-	public void setCreationDate(String creationDate) {
-		failWhenItemClosed();
-		this.creationDate = creationDate;
-	}
-	
 	public int hashCode() {
 		if (identifier == null) {
 			identifier = Math.abs((creationDate + "##" + text).hashCode());
@@ -163,9 +174,14 @@ public class Item {
 
 	public void setProject(String project) {
 		failWhenItemClosed();
-		this.project = project;
+		if (!this.project.equals(project)) {
+			this.project = project;
+			hasChanged = true;
+		}
 	}
 	
-	
+	public boolean isChanged() {
+		return hasChanged;
+	}
 	
 }
