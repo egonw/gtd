@@ -162,6 +162,7 @@ public class Item {
 	public int hashCode() {
 		if (identifier == null) {
 			identifier = Math.abs((creationDate + "##" + text).hashCode());
+			this.hasChanged = true;
 		}
 		return identifier;
 	}
