@@ -125,19 +125,23 @@ complete -F _gtd_list_item -o default gtd-list-item
 
 _gtd_set_property()
 {
-    local cur
+    local cur optBase
 
     cur=${COMP_WORDS[COMP_CWORD]}
 
-    if [[ "$cur" == --* ]]; then
-        COMPREPLY=( $( compgen -W '--context=' -- $cur ) )
+    if [[ "$cur" == --project= ]]; then
+        COMPREPLY=( $( compgen -W '--project=' -- $cur ) )
     else
-        if [[ "$cur" == -* ]]; then
-            COMPREPLY=( $( compgen -W '-c' -- $cur ) )
+        if [[ "$cur" == --* ]]; then
+            COMPREPLY=( $( compgen -W '--context=HOME --context=WORK --priority=URGENT --priority=TODAY --priority=HIGH --priority=MEDIUM --priority=UNSET --priority=LOW --priority=DELAYED --project=' -- $cur ) )
         else
-            COMPREPLY=( $( compgen -W '`gtd-list-item-ids`' -- $cur ) )
-        fi
-    fi
+            if [[ "$cur" == -* ]]; then
+                COMPREPLY=( $( compgen -W '-c -p -r' -- $cur ) )
+            else
+                COMPREPLY=( $( compgen -W '`gtd-list-item-ids`' -- $cur ) )
+            fi
+	    fi
+	fi
 
     return 0
 }
