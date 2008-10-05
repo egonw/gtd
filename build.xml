@@ -59,6 +59,7 @@
     <antcall target="process.in"><param name="file" value="gtd-commit"/></antcall>
     <antcall target="process.in"><param name="file" value="gtd-diff"/></antcall>
     <antcall target="process.in"><param name="file" value="gtd-list-item"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-set-property"/></antcall>
   </target>
 
   <target id="process.in" name="process.in">
