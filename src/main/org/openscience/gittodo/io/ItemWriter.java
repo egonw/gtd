@@ -20,6 +20,7 @@ public class ItemWriter {
 	private Item item;
 
 	public ItemWriter(Item item) throws IOException {
+		if (!item.isChanged()) throw new IOException("Won't save an unchanged Item.");
 		this.item = item;
 		ensureFolder(item);
 		File itemFile = createFile(item);
