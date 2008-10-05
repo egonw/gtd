@@ -147,7 +147,7 @@ public class Item {
 
 	public void setText(String text) {
 		failWhenItemClosed();
-		if (!this.text.equals(text)) {
+		if (this.text == null || !this.text.equals(text)) {
 			this.text = text;
 			hasChanged = true;
 		}
@@ -175,7 +175,7 @@ public class Item {
 
 	public void setProject(String project) {
 		failWhenItemClosed();
-		if (!this.project.equals(project)) {
+		if (this.project == null || !this.project.equals(project)) {
 			this.project = project;
 			hasChanged = true;
 		}
