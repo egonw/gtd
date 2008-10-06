@@ -5,6 +5,7 @@
  */
 package org.openscience.gittodo.model;
 
+import java.net.URL;
 import java.util.Map;
 
 import org.openscience.gittodo.io.ItemReader;
@@ -185,4 +186,14 @@ public class Item {
 		return hasChanged;
 	}
 	
+	private URL url;
+
+	public URL getUrl() {
+		return url;
+	}
+
+	public void setUrl(URL url) {
+		this.url = url;
+	}
+
 }
