@@ -49,6 +49,7 @@ public class ItemWriter {
 		itemProps.put("Text", item.getText());
 		itemProps.put("State", "" + item.getState());
 		itemProps.put("Priority", "" + item.getPriority());
+		if (item.getUrl() != null) itemProps.put("URL", item.getUrl().toString());
 		if (item.getProject() != null) itemProps.put("Project", item.getProject());
 		if (item.getContext() != null) itemProps.put("Context", "" + item.getContext());
 		itemProps.store(writer, "gittodo v1");

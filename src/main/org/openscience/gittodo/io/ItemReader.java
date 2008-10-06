@@ -7,6 +7,7 @@ package org.openscience.gittodo.io;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URL;
 import java.util.Properties;
 
 import org.openscience.gittodo.model.Item;
@@ -63,11 +64,17 @@ public class ItemReader {
 				context =  Item.CONTEXT.WORK;
 			}
 		}
+		URL url = null;
+		if (itemProps.containsKey("URL")) {
+			String urlStr = itemProps.getProperty("URL");
+			url = new URL(urlStr);
+		}
 		Item item =  new Item(
 			itemProps.getProperty("CreationDate"),
 			itemProps.getProperty("Text"),
 			state, priority, context, hashcode,
-			itemProps.getProperty("Project")
+			itemProps.getProperty("Project"),
+			url
 		);
 		return item;
 	}

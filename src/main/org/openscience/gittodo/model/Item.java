@@ -37,7 +37,7 @@ public class Item {
 	 * Method primarily used by the {@link ItemReader} to set values.
 	 */
 	public Item(String creationDate, String text, STATE state, PRIORITY priority,
-			CONTEXT context, Integer hashcode, String project) {
+			CONTEXT context, Integer hashcode, String project, URL url) {
 		this.hasChanged = false;
 		this.creationDate = creationDate;
 		this.text = text;
@@ -46,6 +46,7 @@ public class Item {
 		this.context = context;
 		this.identifier = hashcode;
 		this.project = project;
+		this.url = url;
 	}
 	
 	private Integer identifier;
@@ -193,7 +194,11 @@ public class Item {
 	}
 
 	public void setUrl(URL url) {
-		this.url = url;
+		failWhenItemClosed();
+		if (this.url == null || url == null || !this.url.toString().equals(url.toString())) {
+			this.url = url;
+			hasChanged = true;
+		}
 	}
 
 }

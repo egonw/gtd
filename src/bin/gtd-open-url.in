@@ -1,0 +1,11 @@
+#!/bin/sh
+
+JAVA=/usr/bin/java
+CLASSPATH=%PREFIX%/share/java/gittodo.jar
+FIREFOX=/usr/bin/firefox
+
+URL=`${JAVA} -cp ${CLASSPATH} org.openscience.gittodo.app.ListItem $1 | grep URL | cut -d':' -f2-10`
+
+if [ "$URL" ]; then
+  `$FIREFOX $URL`
+fi

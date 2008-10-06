@@ -122,6 +122,7 @@ _gtd_list_item()
 }
 
 complete -F _gtd_list_item -o default gtd-list-item
+complete -F _gtd_list_item -o default gtd-open-url
 
 _gtd_set_property()
 {
