@@ -13,7 +13,7 @@ import org.openscience.gittodo.model.Item;
 
 public class ItemSorter {
 
-	public static void sortByPriority(List<Item> unsorted) {
+	public static List<Item> sortByPriority(List<Item> unsorted) {
 		Collections.sort(unsorted,
 			new Comparator<Item>() {
 				public int compare(Item item0, Item item1) {
@@ -21,9 +21,10 @@ public class ItemSorter {
 				}			
 			}
 		);
+		return unsorted;
 	}
 	
-	public static void sortByID(List<Item> unsorted) {
+	public static List<Item> sortByID(List<Item> unsorted) {
 		Collections.sort(unsorted,
 			new Comparator<Item>() {
 				public int compare(Item item0, Item item1) {
@@ -31,6 +32,7 @@ public class ItemSorter {
 				}			
 			}
 		);
+		return unsorted;
 	}
 	
 }
