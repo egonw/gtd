@@ -1,27 +1,111 @@
 package com.github.gittodo.rcp;
 
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.openscience.gittodo.model.Item;
+import org.openscience.gittodo.sort.ItemSorter;
 
 import com.github.gittodo.rcp.views.GitToDoTree;
+import com.github.gittodo.rcp.views.ItemEditShell;
 
 public class GitToDo {
 
     public static void main( String[] args ) {
-        Display display = new Display();
-        Shell shell = new Shell(display);
-        shell.setText("GitToDo");
-        shell.setLayout(new FillLayout());
+        final Display display = new Display();
+        final Shell shell = new Shell(display);
+        FillLayout layout = new FillLayout();
+        shell.setLayout(layout);
         
-        final TableViewer tableViewer = new GitToDoTree(shell);
+        final GitToDoTree tableViewer = new GitToDoTree(shell);
+        tableViewer.addFilter( new ViewerFilter() {
+            @Override
+            public boolean select( Viewer arg0, Object arg1, Object arg2 ) {
+                Item item = (Item)arg2;
+                return item.getState() == Item.STATE.OPEN;
+            }
+        });
         
+        Menu menuBar = new Menu(shell, SWT.BAR);
+        shell.setMenuBar( menuBar );
+        MenuItem fileMenuItem = new MenuItem(menuBar, SWT.CASCADE);
+        fileMenuItem.setText( "&File" );
+        Menu fileMenu = new Menu(shell, SWT.DROP_DOWN);
+        fileMenuItem.setMenu(fileMenu);
+        MenuItem newItemMenu = new MenuItem(fileMenu, SWT.DROP_DOWN);
+        newItemMenu.setText("&New Item\tCtlr+N");
+        newItemMenu.setAccelerator(SWT.CTRL + 'N');
+        newItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    // TODO: create a new item
+                    System.out.println("New item...");
+                    try {
+                        ItemEditShell child = new ItemEditShell(shell, null);
+                        child.open();
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
+                }                
+            }
+        );
+        MenuItem exitItemMenu = new MenuItem(fileMenu, SWT.DROP_DOWN);
+        exitItemMenu.setText("&Exit\tCtlr+Q");
+        exitItemMenu.setAccelerator(SWT.CTRL + 'Q');
+        exitItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    shell.dispose();
+                }                
+            }
+        );
+        MenuItem sortMenuItem = new MenuItem(menuBar, SWT.CASCADE);
+        sortMenuItem.setText( "&Sort" );
+        Menu sortMenu = new Menu(shell, SWT.DROP_DOWN);
+        sortMenuItem.setMenu(sortMenu);
+        MenuItem priorityItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
+        priorityItemMenu.setText("Priority\tCtlr+R");
+        priorityItemMenu.setAccelerator(SWT.CTRL + 'R');
+        priorityItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    tableViewer.setContent(ItemSorter.sortByPriority(tableViewer.getItems()));
+                }                
+            }
+        );
+        MenuItem contextItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
+        contextItemMenu.setText("Context\tCtlr+C");
+        contextItemMenu.setAccelerator(SWT.CTRL + 'C');
+        contextItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    tableViewer.setContent(ItemSorter.sortByContext(tableViewer.getItems()));
+                }                
+            }
+        );
+        MenuItem projectItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
+        projectItemMenu.setText("Project\tCtlr+P");
+        projectItemMenu.setAccelerator(SWT.CTRL + 'P');
+        projectItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    tableViewer.setContent(ItemSorter.sortByProject(tableViewer.getItems()));
+                }                
+            }
+        );
+
         shell.open();
         while (!shell.isDisposed()) {
             if (!display.readAndDispatch()) display.sleep();
         }
         display.dispose();
     }
-
+    
 }

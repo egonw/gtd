@@ -17,10 +17,12 @@ public class ItemTableLabelProvider extends LabelProvider implements ITableLabel
             case 0:
                 return "" + item.hashCode();
             case 1:
-                return item.getContext() == null ? "" : "" + item.getContext();
+                return item.getProject() == null ? "" : item.getProject();
             case 2:
-                return "" + item.getPriority();
+                return item.getContext() == null ? "" : "" + item.getContext();
             case 3:
+                return "" + item.getPriority();
+            case 4:
                 return item.getText();
             default:
                 return "no clue";

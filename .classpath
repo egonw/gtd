@@ -3,55 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.github.gittodo"/>
-	<classpathentry kind="lib" path="/usr/local/eclipse3.4/plugins/org.eclipse.swt.gtk.linux.x86_3.4.0.v3448f.jar" sourcepath="/usr/local/eclipse3.4/plugins/org.eclipse.swt.gtk.linux.x86_3.4.0.v3448f.jar">
-		<accessrules>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/accessibility/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/awt/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/browser/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/custom/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/dnd/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/events/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/graphics/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/layout/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/opengl/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/printing/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/program/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/swt/widgets/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/image/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/theme/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/accessibility/gtk/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/cairo/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/cde/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/gnome/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/gtk/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/mozilla/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/swt/internal/opengl/glx/*"/>
-			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
-		</accessrules>
-	</classpathentry>
-	<classpathentry kind="lib" path="/usr/local/eclipse3.4/plugins/org.eclipse.jface_3.4.0.I20080606-1300.jar"/>
-	<classpathentry kind="lib" path="/usr/local/eclipse3.4/plugins/org.eclipse.core.runtime_3.4.0.v20080512.jar"/>
-	<classpathentry kind="lib" path="/usr/local/eclipse3.4/plugins/org.eclipse.equinox.common_3.4.0.v20080421-2006.jar" sourcepath="/usr/local/eclipse3.4/plugins/org.eclipse.equinox.common_3.4.0.v20080421-2006.jar">
-		<accessrules>
-			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/boot/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/runtime/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/core/runtime/*"/>
-			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
-		</accessrules>
-	</classpathentry>
-	<classpathentry kind="lib" path="/usr/local/eclipse3.4/plugins/org.eclipse.core.commands_3.4.0.I20080509-2000.jar" sourcepath="/usr/local/eclipse3.4/plugins/org.eclipse.core.commands_3.4.0.I20080509-2000.jar">
-		<accessrules>
-			<accessrule kind="accessible" pattern="org/eclipse/core/commands/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/core/commands/common/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/core/commands/contexts/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/core/commands/operations/*"/>
-			<accessrule kind="accessible" pattern="org/eclipse/core/commands/util/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/commands/operations/*"/>
-			<accessrule kind="discouraged" pattern="org/eclipse/core/internal/commands/util/*"/>
-			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
-		</accessrules>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
