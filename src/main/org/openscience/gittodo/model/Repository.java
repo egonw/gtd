@@ -6,8 +6,8 @@
 package org.openscience.gittodo.model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class Repository implements IGTDRepository {
 		Properties reposProps = new Properties();
 		try {
 			reposProps.load(
-				new FileReader(
+				new FileInputStream(
 					new File(
 						System.getProperty("user.home") + File.separator + 
 						".gtdrc"
@@ -88,7 +88,7 @@ public class Repository implements IGTDRepository {
 				Integer hashcode = Integer.parseInt(file.getName().substring(0, file.getName().indexOf(".gtd")));
 				try {
 					reader = new ItemReader(
-						new FileReader(file),
+						new FileInputStream(file),
 						hashcode
 					);
 					Item item = reader.read();

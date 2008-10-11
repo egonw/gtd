@@ -6,7 +6,7 @@
 package org.openscience.gittodo.io;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
@@ -14,10 +14,10 @@ import org.openscience.gittodo.model.Item;
 
 public class ItemReader {
 
-	private Reader reader;
+	private InputStream reader;
 	private Integer hashcode;
 
-	public ItemReader(Reader reader, Integer hashcode) throws IOException {
+	public ItemReader(InputStream reader, Integer hashcode) throws IOException {
 		this.reader = reader;
 		this.hashcode = hashcode;
 	}
