@@ -55,7 +55,12 @@ public class ItemSorter {
       Collections.sort(unsorted,
         new Comparator<Item>() {
           public int compare(Item item0, Item item1) {
-            return (item0.getText().compareTo(item1.getText()));
+              String title0 = item0.getText();
+              String title1 = item1.getText();
+              if (title0 == null && title1 == null) return 0;
+              if (title0 == null) return 1;
+              if (title1 == null) return -1;
+              return (title0.compareTo(title1));
           }     
         }
       );
