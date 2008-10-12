@@ -14,7 +14,7 @@ public class Item {
 	
 	private boolean hasChanged;
 	
-	protected Item() throws Exception {
+	public Item() throws Exception {
 		this.priority = PRIORITY.UNSET;
 		this.state = STATE.OPEN;
 		hasChanged = false;
@@ -64,7 +64,6 @@ public class Item {
 	}
 
 	public void setState(STATE state) {
-		failWhenItemClosed();
 		if (this.state != state) {
 			this.state = state;
 			hasChanged = true;
@@ -167,6 +166,10 @@ public class Item {
 			this.hasChanged = true;
 		}
 		return identifier;
+	}
+	
+	public Integer getIdentifier() {
+	    return identifier;
 	}
 	
 	private String project;
