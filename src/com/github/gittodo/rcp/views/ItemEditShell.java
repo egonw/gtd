@@ -88,10 +88,23 @@ public class ItemEditShell {
         label.setText("Context");
         if (canEdit) {
             combo = new Combo(child, SWT.DROP_DOWN);
-            combo.add("" + Item.CONTEXT.HOME);
-            combo.add("" + Item.CONTEXT.WORK);
+            combo.add("");
+            for (Item.CONTEXT context : Item.CONTEXT.values()) {
+                combo.add("" + context);
+            }
             if (itemData.getContext() != null) combo.setText("" + itemData.getContext());
             combo.setLayoutData(gData);
+            combo.addModifyListener( new ModifyListener() {
+                public void modifyText( ModifyEvent arg0 ) {
+                    Combo source = (Combo)arg0.getSource();
+                    int index = source.getSelectionIndex();
+                    if (index == 0) {
+                        itemData.setContext(null);
+                    } else if (index != -1) {
+                        itemData.setContext(Item.CONTEXT.values()[index-1]);
+                    }
+                }
+            });
         } else {
             text = new Text(child, SWT.SINGLE);
             text.setEditable(canEdit);
@@ -108,6 +121,17 @@ public class ItemEditShell {
             }
             if (itemData.getPriority() != null) combo.setText("" + itemData.getPriority());
             combo.setLayoutData(gData);
+            combo.addModifyListener( new ModifyListener() {
+                public void modifyText( ModifyEvent arg0 ) {
+                    Combo source = (Combo)arg0.getSource();
+                    int index = source.getSelectionIndex();
+                    if (index == 0) {
+                        itemData.setPriority(null);
+                    } else if (index != -1) {
+                        itemData.setPriority(Item.PRIORITY.values()[index]);
+                    }
+                }
+            });
         } else {
             text = new Text(child, SWT.SINGLE);
             text.setEditable(canEdit);
