@@ -21,6 +21,7 @@ import org.openscience.gittodo.sort.ItemSorter;
 public class GitToDoTree extends TableViewer {
 
     private final GitToDoTree gtdTree;
+    private final Table table;
     private Shell shell;
     private List<Item> items;
     
@@ -28,7 +29,7 @@ public class GitToDoTree extends TableViewer {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
         this.shell = parent;
         this.gtdTree = this;
-        final Table table = this.getTable();
+        table = this.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
 
@@ -116,6 +117,10 @@ public class GitToDoTree extends TableViewer {
                     return;            
             }
         }
+    }
+    
+    public void refresh() {
+        table.update();
     }
     
 }

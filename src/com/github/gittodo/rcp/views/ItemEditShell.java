@@ -32,6 +32,8 @@ public class ItemEditShell {
             this.itemData = item;
         }
         
+        boolean canEdit = itemData.getState() == Item.STATE.OPEN;
+        
         Label label;
         Combo combo;
         Text text;
@@ -60,6 +62,7 @@ public class ItemEditShell {
         label.setText("Title");
         text = new Text(child, SWT.FILL);
         text.setText(itemData.getText() == null ? "" : item.getText());
+        text.setEditable(canEdit);
         text.setLayoutData(gData);
         text.addModifyListener( new ModifyListener() {
             public void modifyText( ModifyEvent arg0 ) {
@@ -71,6 +74,7 @@ public class ItemEditShell {
         label.setText("Project");
         text = new Text(child, SWT.FILL);
         text.setText(itemData.getProject() == null ? "" : item.getProject());
+        text.setEditable(canEdit);
         text.setLayoutData(gData);
         text.addModifyListener( new ModifyListener() {
             public void modifyText( ModifyEvent arg0 ) {
@@ -80,23 +84,38 @@ public class ItemEditShell {
         
         label = new Label(child, SWT.LEFT);
         label.setText("Context");
-        combo = new Combo(child, SWT.DROP_DOWN);
-        combo.add("" + Item.CONTEXT.HOME);
-        combo.add("" + Item.CONTEXT.WORK);
-        if (itemData.getContext() != null) combo.setText("" + itemData.getContext());
-        combo.setLayoutData(gData);
+        if (canEdit) {
+            combo = new Combo(child, SWT.DROP_DOWN);
+            combo.add("" + Item.CONTEXT.HOME);
+            combo.add("" + Item.CONTEXT.WORK);
+            if (itemData.getContext() != null) combo.setText("" + itemData.getContext());
+            combo.setLayoutData(gData);
+        } else {
+            text = new Text(child, SWT.SINGLE);
+            text.setEditable(canEdit);
+            text.setText("" + itemData.getContext());
+            text.setLayoutData(gData);
+        }
         
         label = new Label(child, SWT.LEFT);
         label.setText("Priority");
-        combo = new Combo(child, SWT.DROP_DOWN);
-        for (Item.PRIORITY priority : Item.PRIORITY.values()) {
-            combo.add("" + priority);
+        if (canEdit) {
+            combo = new Combo(child, SWT.DROP_DOWN);
+            for (Item.PRIORITY priority : Item.PRIORITY.values()) {
+                combo.add("" + priority);
+            }
+            if (itemData.getPriority() != null) combo.setText("" + itemData.getPriority());
+            combo.setLayoutData(gData);
+        } else {
+            text = new Text(child, SWT.SINGLE);
+            text.setEditable(canEdit);
+            text.setText("" + itemData.getPriority());
+            text.setLayoutData(gData);
         }
-        if (itemData.getPriority() != null) combo.setText("" + itemData.getPriority());
-        combo.setLayoutData(gData);
         
         Button button = new Button(child, SWT.CHECK);
         button.setText("Done");
+        button.setSelection(itemData.getState() == Item.STATE.CLOSED);
         button.addSelectionListener(new SelectionAdapter() {
             @Override
              public void widgetSelected( SelectionEvent e ) {
