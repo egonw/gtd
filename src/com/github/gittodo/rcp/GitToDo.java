@@ -65,7 +65,7 @@ public class GitToDo {
         priorityItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
-                    tableViewer.setContent(ItemSorter.sortByPriority(tableViewer.getItems()));
+                    tableViewer.setActiveItems(ItemSorter.sortByPriority(tableViewer.getItems()));
                 }                
             }
         );
@@ -75,7 +75,7 @@ public class GitToDo {
         contextItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
-                    tableViewer.setContent(ItemSorter.sortByContext(tableViewer.getItems()));
+                    tableViewer.setActiveItems(ItemSorter.sortByContext(tableViewer.getItems()));
                 }                
             }
         );
@@ -85,7 +85,7 @@ public class GitToDo {
         projectItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
-                    tableViewer.setContent(ItemSorter.sortByProject(tableViewer.getItems()));
+                    tableViewer.setActiveItems(ItemSorter.sortByProject(tableViewer.getItems()));
                 }                
             }
         );

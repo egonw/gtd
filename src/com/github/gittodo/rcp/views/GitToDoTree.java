@@ -25,6 +25,7 @@ public class GitToDoTree extends TableViewer {
     private final Table table;
     private Shell shell;
     private List<Item> items;
+    private List<Item> activeItems;
     
     public GitToDoTree(Shell parent) {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
@@ -72,17 +73,21 @@ public class GitToDoTree extends TableViewer {
         
         this.setLabelProvider(new ItemTableLabelProvider());
         this.setContentProvider(new ArrayContentProvider());
-        setContent(items);
+        setActiveItems(items);
     }
 
     public List<Item> getItems() {
         return items;
     }
     
-    public void setContent(List<Item> items) {
-        List<Item> filteredItems = new ArrayList<Item>();
-        for (Item item : items) if (treeFilter.matches(item)) filteredItems.add(item);
-        Item[] itemArray = (Item[])filteredItems.toArray(new Item[]{}); 
+    public List<Item> getActiveItems() {
+        return items;
+    }
+    
+    public void setActiveItems(List<Item> items) {
+        activeItems = new ArrayList<Item>();
+        for (Item item : items) if (treeFilter.matches(item)) activeItems.add(item);
+        Item[] itemArray = (Item[])activeItems.toArray(new Item[]{}); 
         this.setInput(itemArray);
     }
     
@@ -103,19 +108,19 @@ public class GitToDoTree extends TableViewer {
             System.out.println("Column selected: " + arg0.getClass().getName());
             switch (colIndex) {
                 case 0:
-                    setContent(ItemSorter.sortByID(items));
+                    setActiveItems(ItemSorter.sortByID(items));
                     break;
                 case 1:
-                    setContent(ItemSorter.sortByProject(items));
+                    setActiveItems(ItemSorter.sortByProject(items));
                     break;
                 case 2:
-                    setContent(ItemSorter.sortByContext(items));
+                    setActiveItems(ItemSorter.sortByContext(items));
                     break;
                 case 3:
-                    setContent(ItemSorter.sortByPriority(items));
+                    setActiveItems(ItemSorter.sortByPriority(items));
                     break;
                 case 4:
-                    setContent(ItemSorter.sortByTitle(items));
+                    setActiveItems(ItemSorter.sortByTitle(items));
                     break;
                 default:
                     return;            
@@ -124,7 +129,7 @@ public class GitToDoTree extends TableViewer {
     }
     
     public void update() {
-        setContent(getItems());
+        setActiveItems(getItems());
         table.update();
     }
 
