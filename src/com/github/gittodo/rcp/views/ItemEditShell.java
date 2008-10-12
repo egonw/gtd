@@ -23,9 +23,11 @@ public class ItemEditShell {
     private final Shell child;
     private final Item itemData;
     private final GitToDoTree tree;
+    private final boolean isEditing;
     
     public ItemEditShell(Shell parent, Item item, GitToDoTree someTree) throws Exception {
-        String title = (item == null ? "New Item" : "Edit Item");
+        isEditing = item != null;
+        String title = (isEditing ? "New Item" : "Edit Item");
         this.tree = someTree;
         
         if (item == null) {
@@ -63,7 +65,7 @@ public class ItemEditShell {
         label = new Label(child, SWT.LEFT);
         label.setText("Title");
         text = new Text(child, SWT.FILL);
-        text.setText(itemData.getText() == null ? "" : item.getText());
+        text.setText(itemData.getText() == null ? "" : itemData.getText());
         text.setEditable(canEdit);
         text.setLayoutData(gData);
         text.addModifyListener( new ModifyListener() {
@@ -178,6 +180,7 @@ public class ItemEditShell {
                         ItemWriter writer = new ItemWriter(itemData);
                         writer.write();
                         writer.close();
+                        if (!isEditing) tree.getItems().add(itemData);
                         tree.update();
                         child.close();
                     }
