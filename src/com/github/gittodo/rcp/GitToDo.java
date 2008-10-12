@@ -90,10 +90,10 @@ public class GitToDo {
             }
         );
         MenuItem filterMenuItem = new MenuItem(menuBar, SWT.CASCADE);
-        filterMenuItem.setText( "&Filter" );
+        filterMenuItem.setText( "Fi&lter" );
         Menu filterMenu = new Menu(shell, SWT.DROP_DOWN);
         filterMenuItem.setMenu(filterMenu);
-        MenuItem advancedItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
+        MenuItem advancedItemMenu = new MenuItem(filterMenu, SWT.DROP_DOWN);
         advancedItemMenu.setText("&Advanced\tCtlr+F");
         advancedItemMenu.setAccelerator(SWT.CTRL + 'F');
         advancedItemMenu.addSelectionListener(
@@ -106,6 +106,17 @@ public class GitToDo {
                         e.printStackTrace();
                     }
                 }                
+            }
+        );
+        MenuItem resetItemMenu = new MenuItem(filterMenu, SWT.DROP_DOWN);
+        resetItemMenu.setText("&Reset\tCtlr+X");
+        resetItemMenu.setAccelerator(SWT.CTRL + 'X');
+        resetItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    tableViewer.getFilter().reset();
+                    tableViewer.update();
+                }
             }
         );
 
