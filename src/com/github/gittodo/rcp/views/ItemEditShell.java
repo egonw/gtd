@@ -55,11 +55,10 @@ public class ItemEditShell {
         // now add the widgets
         label = new Label(child, SWT.LEFT);
         label.setText("Identifier");
-        text = new Text(child, SWT.FILL);
-        text.setLayoutData(gData);
-        text.setEditable(false);
+        label = new Label(child, SWT.FILL);
+        label.setLayoutData(gData);
         if (itemData.getIdentifier() != null) {
-            text.setText(""+itemData.getIdentifier());
+            label.setText(""+itemData.getIdentifier());
         }
 
         label = new Label(child, SWT.LEFT);
