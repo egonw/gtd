@@ -22,9 +22,11 @@ public class ItemEditShell {
     
     private final Shell child;
     private final Item itemData;
+    private final GitToDoTree tree;
     
-    public ItemEditShell(Shell parent, Item item) throws Exception {
+    public ItemEditShell(Shell parent, Item item, GitToDoTree someTree) throws Exception {
         String title = (item == null ? "New Item" : "Edit Item");
+        this.tree = someTree;
         
         if (item == null) {
             this.itemData = new Item();
@@ -120,7 +122,11 @@ public class ItemEditShell {
             @Override
              public void widgetSelected( SelectionEvent e ) {
                  super.widgetSelected(e);
-                 itemData.setState(Item.STATE.CLOSED);
+                 if (((Button)e.getSource()).getSelection()) {
+                     itemData.setState(Item.STATE.CLOSED);
+                 } else {
+                     itemData.setState(Item.STATE.OPEN);
+                 }
              } 
          });GridData fullData = new GridData();
         fullData.horizontalAlignment = GridData.FILL;
@@ -148,6 +154,7 @@ public class ItemEditShell {
                         ItemWriter writer = new ItemWriter(itemData);
                         writer.write();
                         writer.close();
+                        tree.update();
                         child.close();
                     }
                 } catch ( IOException e1 ) {

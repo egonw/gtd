@@ -21,12 +21,15 @@ import org.openscience.gittodo.sort.ItemSorter;
 public class GitToDoTree extends TableViewer {
 
     private final GitToDoTree gtdTree;
+    private final GitToDoTreeFilter treeFilter;
     private final Table table;
     private Shell shell;
     private List<Item> items;
     
     public GitToDoTree(Shell parent) {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
+        this.treeFilter = new GitToDoTreeFilter();
+        this.treeFilter.reset();
         this.shell = parent;
         this.gtdTree = this;
         table = this.getTable();
@@ -57,10 +60,9 @@ public class GitToDoTree extends TableViewer {
             public void mouseDoubleClick(MouseEvent e) {
                 super.mouseDoubleClick(e);
                 int index = table.getSelectionIndex();
-                System.out.println("Item clicked: " + index);
                 try {
                     Item selected = (Item)table.getItem(index).getData();
-                    ItemEditShell child = new ItemEditShell(gtdTree.shell, selected);
+                    ItemEditShell child = new ItemEditShell(gtdTree.shell, selected, gtdTree);
                     child.open();
                 } catch ( Exception exception) {
                     exception.printStackTrace();
@@ -78,7 +80,9 @@ public class GitToDoTree extends TableViewer {
     }
     
     public void setContent(List<Item> items) {
-        Item[] itemArray = (Item[])items.toArray(new Item[]{}); 
+        List<Item> filteredItems = new ArrayList<Item>();
+        for (Item item : items) if (treeFilter.matches(item)) filteredItems.add(item);
+        Item[] itemArray = (Item[])filteredItems.toArray(new Item[]{}); 
         this.setInput(itemArray);
     }
     
@@ -119,8 +123,12 @@ public class GitToDoTree extends TableViewer {
         }
     }
     
-    public void refresh() {
+    public void update() {
+        setContent(getItems());
         table.update();
     }
-    
+
+    public GitToDoTreeFilter getFilter() {
+        return treeFilter;
+    }
 }

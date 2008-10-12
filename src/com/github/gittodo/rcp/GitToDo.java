@@ -1,7 +1,5 @@
 package com.github.gittodo.rcp;
 
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -10,11 +8,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.openscience.gittodo.model.Item;
 import org.openscience.gittodo.sort.ItemSorter;
 
 import com.github.gittodo.rcp.views.GitToDoTree;
 import com.github.gittodo.rcp.views.ItemEditShell;
+import com.github.gittodo.rcp.views.ItemFilterShell;
 
 public class GitToDo {
 
@@ -25,13 +23,6 @@ public class GitToDo {
         shell.setLayout(layout);
         
         final GitToDoTree tableViewer = new GitToDoTree(shell);
-        tableViewer.addFilter( new ViewerFilter() {
-            @Override
-            public boolean select( Viewer arg0, Object arg1, Object arg2 ) {
-                Item item = (Item)arg2;
-                return item.getState() == Item.STATE.OPEN;
-            }
-        });
         
         Menu menuBar = new Menu(shell, SWT.BAR);
         shell.setMenuBar( menuBar );
@@ -45,10 +36,8 @@ public class GitToDo {
         newItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
-                    // TODO: create a new item
-                    System.out.println("New item...");
                     try {
-                        ItemEditShell child = new ItemEditShell(shell, null);
+                        ItemEditShell child = new ItemEditShell(shell, null, tableViewer);
                         child.open();
                     } catch ( Exception e ) {
                         e.printStackTrace();
@@ -97,6 +86,25 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     tableViewer.setContent(ItemSorter.sortByProject(tableViewer.getItems()));
+                }                
+            }
+        );
+        MenuItem filterMenuItem = new MenuItem(menuBar, SWT.CASCADE);
+        filterMenuItem.setText( "&Filter" );
+        Menu filterMenu = new Menu(shell, SWT.DROP_DOWN);
+        filterMenuItem.setMenu(filterMenu);
+        MenuItem advancedItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
+        advancedItemMenu.setText("&Advanced\tCtlr+F");
+        advancedItemMenu.setAccelerator(SWT.CTRL + 'F');
+        advancedItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    try {
+                        ItemFilterShell child = new ItemFilterShell(shell, tableViewer);
+                        child.open();
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
                 }                
             }
         );
