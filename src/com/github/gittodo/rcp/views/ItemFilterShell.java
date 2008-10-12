@@ -33,6 +33,7 @@ public class ItemFilterShell {
         gData.grabExcessHorizontalSpace = true;
         
         this.child = new Shell(parent);
+        child.setBounds(100, 100, 500, 200);
         child.setText(title);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
