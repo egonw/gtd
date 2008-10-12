@@ -6,6 +6,7 @@
 package org.openscience.gittodo.model;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 
 import org.openscience.gittodo.io.ItemReader;
@@ -14,11 +15,21 @@ public class Item {
 	
 	private boolean hasChanged;
 	
-	public Item() throws Exception {
-		this.priority = PRIORITY.UNSET;
-		this.state = STATE.OPEN;
-		hasChanged = false;
-	}
+    @SuppressWarnings("deprecation")
+    public Item() throws Exception {
+        // set a creation date
+        Date now = new Date(System.currentTimeMillis());
+        String dateStr = "" + (now.getYear()+1900) + "-";
+        if ((now.getMonth()+1) < 10) dateStr += "0";
+        dateStr += (now.getMonth() + 1) + "-";
+        if (now.getDate() < 10) dateStr += "0";
+        dateStr += now.getDate();
+        this.creationDate = dateStr;
+
+        this.priority = PRIORITY.UNSET;
+        this.state = STATE.OPEN;
+        hasChanged = false;
+    }
 	
 	public Item(String creationDate, String text) throws Exception {
 		this();
