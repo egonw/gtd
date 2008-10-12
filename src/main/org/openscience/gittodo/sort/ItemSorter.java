@@ -55,7 +55,23 @@ public class ItemSorter {
       Collections.sort(unsorted,
         new Comparator<Item>() {
           public int compare(Item item0, Item item1) {
-            return (Integer.valueOf(item0.getText()).compareTo(Integer.valueOf(item1.getText())));
+            return (item0.getText().compareTo(item1.getText()));
+          }     
+        }
+      );
+      return unsorted;
+    }
+    
+  public static List<Item> sortByProject(List<Item> unsorted) {
+      Collections.sort(unsorted,
+        new Comparator<Item>() {
+          public int compare(Item item0, Item item1) {
+              String project0 = item0.getProject();
+              String project1 = item1.getProject();
+              if (project0 == null && project1 == null) return 0;
+              if (project0 == null) return 1;
+              if (project1 == null) return -1;
+            return (project0.compareTo(project1));
           }     
         }
       );
