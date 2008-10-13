@@ -15,7 +15,7 @@ public class ItemTableLabelProvider extends LabelProvider implements ITableLabel
         Item item = (Item)element;
         switch (index) {
             case 0:
-                return "" + item.hashCode();
+                return item.getCreationDate();
             case 1:
                 return item.getProject() == null ? "" : item.getProject();
             case 2:

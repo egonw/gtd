@@ -42,7 +42,7 @@ public class GitToDoTree extends TableViewer {
         items.addAll(repos.items().values());
 
         String[] columnNames = new String[] {
-            "ID", "Project", "Context", "Priority", "Title"
+            "Created", "Project", "Context", "Priority", "Title"
         };
         int[] columnWidths = new int[] {
             120, 150, 100, 100, 300
@@ -108,7 +108,7 @@ public class GitToDoTree extends TableViewer {
             System.out.println("Column selected: " + arg0.getClass().getName());
             switch (colIndex) {
                 case 0:
-                    setActiveItems(ItemSorter.sortByID(items));
+                    setActiveItems(ItemSorter.sortByCreationDate(items));
                     break;
                 case 1:
                     setActiveItems(ItemSorter.sortByProject(items));

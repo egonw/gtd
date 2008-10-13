@@ -83,4 +83,19 @@ public class ItemSorter {
       return unsorted;
     }
     
+    public static List<Item> sortByCreationDate(List<Item> unsorted) {
+        Collections.sort(unsorted, new Comparator<Item>() {
+            public int compare(Item item0, Item item1) {
+                String date0 = item0.getCreationDate();
+                String date1 = item1.getCreationDate();
+                if (date0 == null && date1 == null) return 0;
+                if (date0 == null) return 1;
+                if (date1 == null) return -1;
+                return (date0.compareTo(date1));
+            }     
+        }
+        );
+        return unsorted;
+    }
+
 }
