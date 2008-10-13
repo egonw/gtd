@@ -17,7 +17,7 @@ public class Project {
 	private int openCount = 0;
 	private int closedCount = 0;
 	
-	protected Project() {
+	public Project() {
 		itemsByState = new HashMap<Item.STATE,Map<Integer,Item>>();
 		itemsByPriority = new HashMap<Item.PRIORITY,Map<Integer,Item>>();
 	}
