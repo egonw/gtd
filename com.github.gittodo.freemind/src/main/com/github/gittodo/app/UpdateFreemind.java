@@ -3,7 +3,7 @@
  * 
  * License: LGPL v3
  */
-package com.github.gittodo.apps;
+package com.github.gittodo.app;
 
 import java.io.File;
 
