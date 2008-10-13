@@ -21,6 +21,7 @@ public class UpdateFreemind {
         for (Project project : repos.projects().values()) {
             fmFile.add(project);
         }
+        fmFile.save(new File(fileStr));
     }
       
 }

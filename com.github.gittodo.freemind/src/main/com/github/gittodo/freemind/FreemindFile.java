@@ -42,7 +42,7 @@ public class FreemindFile {
         if (!"map".equals(rootElement.getLocalName()) ||
             rootElement.getAttribute("version") == null)
             throw new Exception("File does not seem to be a Freemind file.");
-        if (!rootElement.getAttribute("version").equals("0.7.1"))
+        if (!rootElement.getAttributeValue("version").equals("0.7.1"))
             throw new Exception("Only supported is the Freemind 0.7.1 file format.");
         
         Element rootProjectElement = rootElement.getChildElements().get(0);
@@ -60,9 +60,9 @@ public class FreemindFile {
             Project childProject = new Project();
             childProject.setName(child.getAttributeValue("TEXT"));
             if (child.getAttribute("POSITION") != null) {
-                if (child.getAttribute("POSITION").equals("left")) {
+                if (child.getAttributeValue("POSITION").equals("left")) {
                     leftSibling = childProject;
-                } else if (child.getAttribute("POSITION").equals("right")) {
+                } else if (child.getAttributeValue("POSITION").equals("right")) {
                     rightSibling = childProject;
                 }
             }
@@ -71,16 +71,20 @@ public class FreemindFile {
     }
 
     private void createChildProjects(Element parent, Project parentProject) {
+        System.out.println("Adding project: " + parentProject.getName());
         for (Project child : getChildren(parentProject)) {
-            Element childElem = new Element("node");
-            childElem.addAttribute(new Attribute("TEXT",child.getName()));
-            if (child.getName().equals(leftSibling.getName())) {
-                childElem.addAttribute(new Attribute("POSITION","left"));
-            } else if (child.getName().equals(rightSibling.getName())) {
-                childElem.addAttribute(new Attribute("POSITION","right"));
+            System.out.println("Adding child: " + child.getName());
+            if (child.getName() != null) {
+                Element childElem = new Element("node");
+                childElem.addAttribute(new Attribute("TEXT",child.getName()));
+                if (leftSibling != null && child.getName().equals(leftSibling.getName())) {
+                    childElem.addAttribute(new Attribute("POSITION","left"));
+                } else if (rightSibling != null && child.getName().equals(rightSibling.getName())) {
+                    childElem.addAttribute(new Attribute("POSITION","right"));
+                }
+                parent.appendChild(childElem);
+                createChildProjects(childElem, child);
             }
-            parent.appendChild(childElem);
-            createChildProjects(childElem, child);
         }
     }
 
@@ -95,8 +99,11 @@ public class FreemindFile {
     public List<Project> getChildren(Project parent) {
         List<Project> children = new ArrayList<Project>();
         // rather naive implementation, but good enough for now
+        System.out.println("Finding parents for: " + parent.getName());
         for (Project child : parentProjects.keySet()) {
+            System.out.println((" child? : " + child.getName()));
             if (parentProjects.get(child).getName().equals(parent.getName())) {
+                System.out.println(" yes");
                 children.add(child);
             }
         }
@@ -108,14 +115,21 @@ public class FreemindFile {
     }
     
     public void add(Project project) {
-        if (!contains(project)) parentProjects.put(project, root);
+        if (!contains(project)) {
+            System.out.println("Adding project: " + project.getName());
+            System.out.println("  with parent: " + root.getName());
+            parentProjects.put(project, root);
+        }
     }
     
     public void save(File file) throws Exception {
         FileWriter writer = new FileWriter(file);
         Element rootElement = new Element("map");
         rootElement.addAttribute(new Attribute("version", "0.7.1"));
-        createChildProjects(rootElement, root);
+        Element allElement = new Element("node");
+        allElement.addAttribute(new Attribute("TEXT", root.getName()));
+        createChildProjects(allElement, root);
+        rootElement.appendChild(allElement);
         Document document = new Document(rootElement);
         writer.write(document.toXML());
         writer.close();

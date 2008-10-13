@@ -1,1 +1,4 @@
 bin
+build
+ant.properties
+gtdfm.jar

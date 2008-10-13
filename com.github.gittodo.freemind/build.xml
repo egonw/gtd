@@ -17,7 +17,9 @@
   <property name="dist" value="dist"/>
 
   <!-- dependencies -->
+  <property name="gittodo.jar" value="gittodo.jar"/>
   <property name="xom-1.1.jar" value="xom-1.1.jar"/>
+  <property name="jaxen.jar" value="jaxen.jar"/>
 
   <!-- folders -->
   <property name="build" value="build"/>
@@ -28,7 +30,9 @@
     <echo message="Version: ${version}"/>
     <echo message="Prefix: ${prefix}"/>
     <echo/>
+    <echo message="gittodo.jar: ${gittodo.jar}"/>
     <echo message="xom-1.1.jar: ${xom-1.1.jar}"/>
+    <echo message="jaxen.jar: ${jaxen.jar}"/>
   </target>
 
   <target id="make" name="make" depends="build, jarLibrary"/>
@@ -37,12 +41,13 @@
     <mkdir dir="${build}"/>
     <javac srcdir="src/main" destdir="${build}" debug="yes">
       <classpath>
+        <fileset file="${gittodo.jar}"/>
         <fileset file="${xom-1.1.jar}"/>
       </classpath>
       <include name="**/*.java"/>
     </javac>
   	
-    <antcall target="process.in"><param name="file" value="gtd-create-item"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-freemind-update"/></antcall>
   </target>
 
   <target id="process.in" name="process.in">
@@ -50,6 +55,8 @@
     <copy file="src/bin/${file}.in" tofile="build/bin/${file}" />
     <replace file="build/bin/${file}" token="%PREFIX%" value="${prefix}" />
     <replace file="build/bin/${file}" token="%xom-1.1.jar%" value="${xom-1.1.jar}" />
+    <replace file="build/bin/${file}" token="%jaxen.jar%" value="${jaxen.jar}" />
+    <replace file="build/bin/${file}" token="%gittodo.jar%" value="${gittodo.jar}" />
   </target>
 
   <target name="jarLibrary">

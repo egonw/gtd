@@ -1,2 +1,4 @@
 prefix=/usr/local
-commons-cli-1.0.jar=/usr/share/java/commons-cli-1.0.jar
+gittodo.jar=/usr/local/share/java/gittodo.jar
+xom-1.1.jar=/usr/share/java/xom-1.1.jar
+jaxen.jar=/usr/share/java/jaxen.jar
