@@ -22,9 +22,11 @@ public class FreemindFile {
     private Project leftSibling;
     private Project rightSibling;
     private Map<Project,Project> parentProjects;
+    private Map<String,Project> projectNames;
     
     public FreemindFile(File file) throws Exception {
-        parentProjects = new HashMap<Project, Project>();
+        parentProjects = new HashMap<Project,Project>();
+        projectNames = new HashMap<String,Project>();
         if (file.exists()) {
             FileInputStream stream = new FileInputStream(file);
 
@@ -50,7 +52,7 @@ public class FreemindFile {
         root.setName(rootProjectElement.getAttributeValue("TEXT"));
         processChildProjects(rootProjectElement, root);
         
-        return null;
+        return root;
     }
 
     private void processChildProjects(Element parent, Project parentProject) {
@@ -67,13 +69,15 @@ public class FreemindFile {
                 }
             }
             parentProjects.put(childProject, parentProject);
+            projectNames.put(childProject.getName(), childProject);
+            processChildProjects(child, childProject);
         }
     }
 
     private void createChildProjects(Element parent, Project parentProject) {
-        System.out.println("Adding project: " + parentProject.getName());
+//        System.out.println("Adding project: " + parentProject.getName());
         for (Project child : getChildren(parentProject)) {
-            System.out.println("Adding child: " + child.getName());
+//            System.out.println("Adding child: " + child.getName());
             if (child.getName() != null) {
                 Element childElem = new Element("node");
                 childElem.addAttribute(new Attribute("TEXT",child.getName()));
@@ -99,11 +103,11 @@ public class FreemindFile {
     public List<Project> getChildren(Project parent) {
         List<Project> children = new ArrayList<Project>();
         // rather naive implementation, but good enough for now
-        System.out.println("Finding parents for: " + parent.getName());
+//        System.out.println("Finding parents for: " + parent.getName());
         for (Project child : parentProjects.keySet()) {
-            System.out.println((" child? : " + child.getName()));
+//            System.out.println((" child? : " + child.getName()));
             if (parentProjects.get(child).getName().equals(parent.getName())) {
-                System.out.println(" yes");
+//                System.out.println(" yes");
                 children.add(child);
             }
         }
@@ -111,13 +115,14 @@ public class FreemindFile {
     }
     
     public boolean contains(Project project) {
-        return parentProjects.keySet().contains(project);
+        return projectNames.containsKey(project.getName());
     }
     
     public void add(Project project) {
+        System.out.println("Contains: " + project.getName());
         if (!contains(project)) {
-            System.out.println("Adding project: " + project.getName());
-            System.out.println("  with parent: " + root.getName());
+//            System.out.println("Adding project: " + project.getName());
+//            System.out.println("  with parent: " + root.getName());
             parentProjects.put(project, root);
         }
     }
