@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/usr/share/java/commons-cli-1.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/net.bioclipse.xom"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
