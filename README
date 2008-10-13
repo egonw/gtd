@@ -1,0 +1,13 @@
+Git ToDo README
+---------------
+
+Git ToDo is a project that allows setting up and maintain ToDo lists
+with a Git-based backend, to allow sharing between machines, and
+automatic backup via Git clones.
+
+There currently are two clients, a command line client wrapped around
+the core libraries, and a RCP-based client which is not so fancy but
+does work. They are available from the subfolders:
+
+com.github.gittodo
+com.github.gittodo.rcp
