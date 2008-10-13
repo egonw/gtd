@@ -68,6 +68,7 @@ public class GitToDoTreeFilter {
         if (item.getState() == Item.STATE.CLOSED) return false;
         if (contextFilter != null && item.getContext() != null &&
             item.getContext() != contextFilter) return false;
+        if (contextFilter != null && item.getContext() == null) return false;
         if (priorityFilter != null && item.getPriority() != null &&
                 item.getPriority() != priorityFilter) return false;
         if (substringFilter != null && substringFilter.length() > 0) {
