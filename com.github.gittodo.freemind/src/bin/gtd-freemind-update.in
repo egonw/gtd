@@ -1,6 +1,6 @@
 #!/bin/sh
 
 JAVA=/usr/bin/java
-CLASSPATH=%PREFIX%/share/java/gittodo.jar
+CLASSPATH=%PREFIX%/share/java/gittodo.jar:%xom-1.1.jar%
 
 ${JAVA} -cp ${CLASSPATH} org.openscience.gittodo.app.UpdateFreemind $*
