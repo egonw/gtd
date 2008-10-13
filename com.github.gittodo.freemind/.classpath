@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/usr/share/java/commons-cli-1.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/net.bioclipse.xom"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.github.gittodo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
