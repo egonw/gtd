@@ -127,9 +127,7 @@ public class ItemEditShell {
                 public void modifyText( ModifyEvent arg0 ) {
                     Combo source = (Combo)arg0.getSource();
                     int index = source.getSelectionIndex();
-                    if (index == 0) {
-                        itemData.setPriority(null);
-                    } else if (index != -1) {
+                    if (index != -1) {
                         itemData.setPriority(Item.PRIORITY.values()[index]);
                     }
                 }
