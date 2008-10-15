@@ -18,15 +18,13 @@ import org.openscience.gittodo.model.Project;
 
 public class FreemindFile {
 
-    private Project root;
-    private Project leftSibling;
-    private Project rightSibling;
-    private Map<Project,Project> parentProjects;
-    private Map<String,Project> projectNames;
+    private FreemindProject root;
+    private Map<FreemindProject,FreemindProject> parentProjects;
+    private Map<String,FreemindProject> projectNames;
     
     public FreemindFile(File file) throws Exception {
-        parentProjects = new HashMap<Project,Project>();
-        projectNames = new HashMap<String,Project>();
+        parentProjects = new HashMap<FreemindProject,FreemindProject>();
+        projectNames = new HashMap<String,FreemindProject>();
         if (file.exists()) {
             FileInputStream stream = new FileInputStream(file);
 
@@ -35,12 +33,12 @@ public class FreemindFile {
             root = processTree(doc.getRootElement());
             stream.close();
         } else {
-            root = new Project();
+            root = new FreemindProject();
             root.setName("All");
         }
     }
 
-    private Project processTree(Element rootElement) throws Exception {
+    private FreemindProject processTree(Element rootElement) throws Exception {
         if (!"map".equals(rootElement.getLocalName()) ||
             rootElement.getAttribute("version") == null)
             throw new Exception("File does not seem to be a Freemind file.");
@@ -48,41 +46,40 @@ public class FreemindFile {
             throw new Exception("Only supported is the Freemind 0.7.1 file format.");
         
         Element rootProjectElement = rootElement.getChildElements().get(0);
-        Project root = new Project();
+        FreemindProject root = new FreemindProject();
         root.setName(rootProjectElement.getAttributeValue("TEXT"));
         processChildProjects(rootProjectElement, root);
         
         return root;
     }
 
-    private void processChildProjects(Element parent, Project parentProject) {
+    private void processChildProjects(Element parent, FreemindProject parentProject) {
         Elements children = parent.getChildElements();
         for (int i=0; i<children.size(); i++) {
             Element child = children.get(i);
-            Project childProject = new Project();
+            FreemindProject childProject = new FreemindProject();
             childProject.setName(child.getAttributeValue("TEXT"));
-            if (child.getAttribute("POSITION") != null) {
-                if (child.getAttributeValue("POSITION").equals("left")) {
-                    leftSibling = childProject;
-                } else if (child.getAttributeValue("POSITION").equals("right")) {
-                    rightSibling = childProject;
-                }
-            }
+            childProject.setLeftSibling("left".equals(child.getAttributeValue("POSITION")));
+            childProject.setRightSibling("right".equals(child.getAttributeValue("POSITION")));
+            childProject.setFolded("true".equals(child.getAttributeValue("FOLDED")));
             parentProjects.put(childProject, parentProject);
             projectNames.put(childProject.getName(), childProject);
             processChildProjects(child, childProject);
         }
     }
 
-    private void createChildProjects(Element parent, Project parentProject) {
-        for (Project child : getChildren(parentProject)) {
+    private void createChildProjects(Element parent, FreemindProject parentProject) {
+        for (FreemindProject child : getChildren(parentProject)) {
             if (child.getName() != null) {
                 Element childElem = new Element("node");
                 childElem.addAttribute(new Attribute("TEXT",child.getName()));
-                if (leftSibling != null && child.getName().equals(leftSibling.getName())) {
+                if (child.isLeftSibling()) {
                     childElem.addAttribute(new Attribute("POSITION","left"));
-                } else if (rightSibling != null && child.getName().equals(rightSibling.getName())) {
+                } else if (child.isRightSibling()) {
                     childElem.addAttribute(new Attribute("POSITION","right"));
+                }
+                if (child.isFolded()) {
+                    childElem.addAttribute(new Attribute("FOLDED","true"));
                 }
                 parent.appendChild(childElem);
                 createChildProjects(childElem, child);
@@ -90,18 +87,18 @@ public class FreemindFile {
         }
     }
 
-    public Project getRootProject() {
+    public FreemindProject getRootProject() {
         return root;
     }
     
-    public Project getParent(Project project) {
+    public FreemindProject getParent(FreemindProject project) {
         return parentProjects.get(project);
     }
     
-    public List<Project> getChildren(Project parent) {
-        List<Project> children = new ArrayList<Project>();
+    public List<FreemindProject> getChildren(FreemindProject parent) {
+        List<FreemindProject> children = new ArrayList<FreemindProject>();
         // rather naive implementation, but good enough for now
-        for (Project child : parentProjects.keySet()) {
+        for (FreemindProject child : parentProjects.keySet()) {
             if (parentProjects.get(child).getName().equals(parent.getName())) {
                 children.add(child);
             }
@@ -114,8 +111,11 @@ public class FreemindFile {
     }
     
     public void add(Project project) {
+        if (!(project instanceof FreemindProject)) {
+            project = new FreemindProject(project);
+        }
         if (!contains(project)) {
-            parentProjects.put(project, root);
+            parentProjects.put((FreemindProject)project, root);
         }
     }
     
