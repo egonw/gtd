@@ -8,7 +8,7 @@ package org.openscience.gittodo.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Project {
+public class Project implements IProject {
 
 	private Map<Item.STATE,Map<Integer,Item>> itemsByState;
 	private Map<Item.PRIORITY,Map<Integer,Item>> itemsByPriority;
@@ -22,14 +22,23 @@ public class Project {
 		itemsByPriority = new HashMap<Item.PRIORITY,Map<Integer,Item>>();
 	}
 	
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#getName()
+     */
 	public String getName() {
 		return name;
 	}
 
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#setName(java.lang.String)
+     */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#add(org.openscience.gittodo.model.Item)
+     */
 	public void add(Item item) {
 		if (itemsByState.get(item.getState()) == null) {
 			itemsByState.put(item.getState(), new HashMap<Integer,Item>());
@@ -51,10 +60,16 @@ public class Project {
 		}
 	}
 	
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#getMaxPriority()
+     */
 	public Item.PRIORITY getMaxPriority() {
 		return maxPriority;
 	}
 	
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#items()
+     */
 	public Map<Integer,Item> items() {
 		Map<Integer,Item> result = new HashMap<Integer,Item>();
 		for (Item.STATE state : itemsByState.keySet()) {
@@ -63,6 +78,9 @@ public class Project {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#items(org.openscience.gittodo.model.Item.STATE)
+     */
 	public Map<Integer,Item> items(Item.STATE state) {
 		Map<Integer,Item> result = new HashMap<Integer,Item>();
 		if (itemsByState.containsKey(state)) {
@@ -71,6 +89,9 @@ public class Project {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#items(org.openscience.gittodo.model.Item.PRIORITY)
+     */
 	public Map<Integer,Item> items(Item.PRIORITY priority) {
 		Map<Integer,Item> result = new HashMap<Integer,Item>();
 		if (itemsByPriority.containsKey(priority)) {
@@ -79,14 +100,23 @@ public class Project {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#getOpenCount()
+     */
 	public int getOpenCount() {
 		return openCount;
 	}
 
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#getClosedCount()
+     */
 	public int getClosedCount() {
 		return closedCount;
 	}
 
+	/* (non-Javadoc)
+     * @see org.openscience.gittodo.model.IProject#itemCount(org.openscience.gittodo.model.Item.PRIORITY)
+     */
 	public int itemCount(Item.PRIORITY priority) {
 		if (itemsByPriority.get(priority) == null) return 0;
 		int count = 0;

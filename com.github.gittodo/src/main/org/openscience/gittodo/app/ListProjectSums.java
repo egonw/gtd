@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openscience.gittodo.model.IGTDRepository;
+import org.openscience.gittodo.model.IProject;
 import org.openscience.gittodo.model.Item;
 import org.openscience.gittodo.model.Project;
 import org.openscience.gittodo.model.Repository;
@@ -23,13 +24,13 @@ public class ListProjectSums {
 		ProjectSorter.sortByPriority(projects);
 		// first determine column width for the project titles
 		int maxLength = 0;
-		for (Project project : projects) {
+		for (IProject project : projects) {
 			if (maxLength < (project.getName() == null ? 0 : project.getName().length())) {
 				maxLength = project.getName().length();
 			}
 		}
 		// now output the projects
-		for (Project project : projects) {
+		for (IProject project : projects) {
 			if (project.getName() != null && project.getOpenCount() > 0) {
 				StringBuffer result = new StringBuffer();
 				result.append(fillWithSpaces(project.getName(), maxLength));

@@ -8,7 +8,7 @@ package com.github.gittodo.app;
 import java.io.File;
 
 import org.openscience.gittodo.model.IGTDRepository;
-import org.openscience.gittodo.model.Project;
+import org.openscience.gittodo.model.IProject;
 import org.openscience.gittodo.model.Repository;
 
 import com.github.gittodo.freemind.FreemindFile;
@@ -18,7 +18,7 @@ public class UpdateFreemind {
         IGTDRepository repos = new Repository();
         String fileStr = repos.getLocation() + File.separator + "all.mm";
         FreemindFile fmFile = new FreemindFile(new File(fileStr));
-        for (Project project : repos.projects().values()) {
+        for (IProject project : repos.projects().values()) {
             fmFile.add(project);
         }
         fmFile.save(new File(fileStr));

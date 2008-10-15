@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.openscience.gittodo.format.OneLiner;
 import org.openscience.gittodo.model.IGTDRepository;
+import org.openscience.gittodo.model.IProject;
 import org.openscience.gittodo.model.Item;
-import org.openscience.gittodo.model.Project;
 import org.openscience.gittodo.model.Repository;
 import org.openscience.gittodo.sort.ItemSorter;
 
@@ -25,7 +25,7 @@ public class ListProject {
 		String projectName = args[0];
 		IGTDRepository repos = new Repository();
 		System.out.println("Repository: " + repos.getLocation());
-		Project project = repos.projects().get(projectName);
+		IProject project = repos.projects().get(projectName);
 		if (project != null) {
 			List<Item> items = new ArrayList<Item>();
 			items.addAll(project.items().values());

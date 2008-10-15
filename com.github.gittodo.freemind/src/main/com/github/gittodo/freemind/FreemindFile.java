@@ -14,7 +14,7 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
-import org.openscience.gittodo.model.Project;
+import org.openscience.gittodo.model.IProject;
 
 public class FreemindFile {
 
@@ -106,11 +106,11 @@ public class FreemindFile {
         return children;
     }
     
-    public boolean contains(Project project) {
+    public boolean contains(IProject project) {
         return projectNames.containsKey(project.getName());
     }
     
-    public void add(Project project) {
+    public void add(IProject project) {
         if (!(project instanceof FreemindProject)) {
             project = new FreemindProject(project);
         }
