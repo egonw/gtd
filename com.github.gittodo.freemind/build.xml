@@ -48,6 +48,7 @@
     </javac>
   	
     <antcall target="process.in"><param name="file" value="gtd-freemind-update"/></antcall>
+    <antcall target="process.in"><param name="file" value="gtd-freemind-show"/></antcall>
   </target>
 
   <target id="process.in" name="process.in">
