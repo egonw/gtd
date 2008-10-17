@@ -1,3 +1,8 @@
+/*
+ * Copyright 2008  Egon Willighagen <egonw@users.sf.net>
+ *
+ * License: LGPL v3
+ */
 package com.github.gittodo.rcp.views;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
