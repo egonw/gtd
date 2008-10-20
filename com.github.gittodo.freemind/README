@@ -1,0 +1,47 @@
+Git ToDo - Freemind README
+--------------------------
+
+Git ToDo is a project that allows setting up and maintain ToDo lists
+with a Git-based backend, to allow sharing between machines, and
+automatic backup via Git clones.
+
+"Git ToDo - Freemind" integrates GitToDo with Freemind, to allow
+graphical visualization of the projects one is working on. Projects
+with open TODAY or URGENT items are marked with a 'warning' icon.
+Organization of projects is done in Freemind, and preserved between
+synchronization with the Git ToDo repository. New projects get added
+to the root 'All' node in the Freemind mind map.
+
+Installation
+------------
+
+$ cp ant.properties.template ant.properties
+$ nano ant.properties
+
+Set the $prefix and the location of the Apache CLI 1.0 jar in ant.properties,
+and make sure the $prefix directory is writable.
+
+$ ant clean make install
+
+Next, set up a new Git repository to hold your ToDo items:
+
+$ cd $HOME/var
+$ mkdir gtdrepos
+$ cd gtdrepos
+$ git init
+$ git add .
+
+And let Git ToDo know where to find it, by creating a file
+$HOME/.gtdrc which should look like:
+
+$ cat ~/.gtdrc
+Repository=/home/egonw/var/gtdrepos
+
+Usage
+-----
+
+Basic usage:
+
+$ gtd-freemind-update
+$ gtd-freemind-show
+
