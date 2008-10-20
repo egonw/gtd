@@ -2,6 +2,6 @@ Repository: /home/egonw/var/gtd
    452104059   OPEN  MEDIUM      2008-09-28 Add gtd-set-project-priority
   1673336285   OPEN  MEDIUM WORK 2008-09-28 Add colors to gtd-list-project-sums output
    618731943   OPEN  MEDIUM      2008-09-28 Add a gtd-rename-project cmd util
+  1585611819   OPEN   UNSET      2008-10-06 Create Mylyn connector
    601470003   OPEN   UNSET      2008-09-29 Clash detection in Item.hashCode
-   616007927   OPEN   UNSET WORK 2008-10-03 Add LGPL v3 license copy.
   2138796721   OPEN   UNSET      2008-09-30 Add schedule support.
