@@ -17,7 +17,7 @@
   <property name="dist" value="dist"/>
 
   <!-- dependencies -->
-  <property name="commons-cli-1.0.jar" value="commons-cli-1.0.jar"/>
+  <property name="commons-cli.jar" value="commons-cli.jar"/>
 
   <!-- folders -->
   <property name="build" value="build"/>
@@ -28,7 +28,7 @@
     <echo message="Version: ${version}"/>
     <echo message="Prefix: ${prefix}"/>
     <echo/>
-    <echo message="commons-cli-1.0.jar: ${commons-cli-1.0.jar}"/>
+    <echo message="commons-cli.jar: ${commons-cli.jar}"/>
   </target>
 
   <target id="make" name="make" depends="build, jarLibrary"/>
@@ -37,7 +37,7 @@
     <mkdir dir="${build}"/>
     <javac srcdir="src/main" destdir="${build}" debug="yes">
       <classpath>
-        <fileset file="${commons-cli-1.0.jar}"/>
+        <fileset file="${commons-cli.jar}"/>
       </classpath>
       <include name="**/*.java"/>
     </javac>
@@ -68,7 +68,7 @@
     <echo message="Converting ${file}.in to ${file}..."/>
     <copy file="src/bin/${file}.in" tofile="build/bin/${file}" />
     <replace file="build/bin/${file}" token="%PREFIX%" value="${prefix}" />
-    <replace file="build/bin/${file}" token="%commons-cli-1.0.jar%" value="${commons-cli-1.0.jar}" />
+    <replace file="build/bin/${file}" token="%commons-cli.jar%" value="${commons-cli.jar}" />
   </target>
 
   <target name="jarLibrary">
