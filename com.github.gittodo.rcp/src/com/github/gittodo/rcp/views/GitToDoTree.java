@@ -31,6 +31,7 @@ public class GitToDoTree extends TableViewer {
     private Shell shell;
     private List<Item> items;
     private List<Item> activeItems;
+    private IGTDRepository repos;
     
     public GitToDoTree(Shell parent) {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
@@ -42,7 +43,7 @@ public class GitToDoTree extends TableViewer {
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
 
-        IGTDRepository repos = new Repository();
+        repos = new Repository();
         items = new ArrayList<Item>();
         items.addAll(repos.items().values());
 
@@ -133,6 +134,13 @@ public class GitToDoTree extends TableViewer {
         }
     }
     
+    public void reload() {
+        repos.reload();
+        items.clear();
+        items.addAll(repos.items().values());
+        update();
+    }
+
     public void update() {
         setActiveItems(getItems());
         table.update();

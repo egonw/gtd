@@ -13,5 +13,6 @@ public interface IGTDRepository {
 	public void setLocation(String location);
 	public Map<Integer,Item> items();
 	public Map<String,Project> projects();
+	public void reload();
 
 }

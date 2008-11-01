@@ -50,6 +50,16 @@ public class GitToDo {
                 }                
             }
         );
+        MenuItem reloadItemMenu = new MenuItem(fileMenu, SWT.DROP_DOWN);
+        reloadItemMenu.setText("&Reload\tCtlr+R");
+        reloadItemMenu.setAccelerator(SWT.CTRL + 'R');
+        reloadItemMenu.addSelectionListener(
+            new SelectionAdapter() {
+                public void widgetSelected(SelectionEvent event) {
+                    tableViewer.reload();
+                }
+            }
+        );
         MenuItem exitItemMenu = new MenuItem(fileMenu, SWT.DROP_DOWN);
         exitItemMenu.setText("&Exit\tCtlr+Q");
         exitItemMenu.setAccelerator(SWT.CTRL + 'Q');
@@ -65,8 +75,8 @@ public class GitToDo {
         Menu sortMenu = new Menu(shell, SWT.DROP_DOWN);
         sortMenuItem.setMenu(sortMenu);
         MenuItem priorityItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
-        priorityItemMenu.setText("Priority\tCtlr+R");
-        priorityItemMenu.setAccelerator(SWT.CTRL + 'R');
+        priorityItemMenu.setText("Priority\tCtlr+T");
+        priorityItemMenu.setAccelerator(SWT.CTRL + 'T');
         priorityItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {

@@ -71,9 +71,13 @@ public class Repository implements IGTDRepository {
 	
 	public Map<Integer,Item> items() {
 		if (items == null) {
-			items = loadFromDir(new File(getLocation()));
+			reload();
 		}
 		return items;
+	}
+
+	public void reload() {
+		items = loadFromDir(new File(getLocation()));
 	}
 
 	private Map<Integer,Item> loadFromDir(File dir) {
