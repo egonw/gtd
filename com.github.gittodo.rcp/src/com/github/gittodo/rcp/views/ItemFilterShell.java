@@ -5,6 +5,9 @@
  */
 package com.github.gittodo.rcp.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -14,20 +17,24 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.openscience.gittodo.model.Item;
-
 
 public class ItemFilterShell {
     
     private final Shell child;
     private final GitToDoTree tree;
     
+    private List<Control> fields;
+
     public ItemFilterShell(Shell parent, GitToDoTree someTree) throws Exception {
         this.tree = someTree;
         String title = "Edit Filter";
+        fields = new ArrayList<Control>();
         
         Label label;
         Combo combo;
@@ -48,6 +55,7 @@ public class ItemFilterShell {
         label = new Label(child, SWT.LEFT);
         label.setText("Search");
         text = new Text(child, SWT.FILL);
+        fields.add(text);
         text.setText(tree.getFilter().getSubstringFilter() == null ? "" : tree.getFilter().getSubstringFilter());
         text.setLayoutData(gData);
         text.addModifyListener( new ModifyListener() {
@@ -64,6 +72,7 @@ public class ItemFilterShell {
         label = new Label(child, SWT.LEFT);
         label.setText("Project");
         text = new Text(child, SWT.FILL);
+        fields.add(text);
         text.setText(tree.getFilter().getProjectFilter() == null ? "" : tree.getFilter().getProjectFilter());
         text.setLayoutData(gData);
         text.addModifyListener( new ModifyListener() {
@@ -80,6 +89,7 @@ public class ItemFilterShell {
         label = new Label(child, SWT.LEFT);
         label.setText("Context");
         combo = new Combo(child, SWT.DROP_DOWN);
+        fields.add(combo);
         combo.add("ANY");
         combo.add("" + Item.CONTEXT.HOME);
         combo.add("" + Item.CONTEXT.WORK);
@@ -104,6 +114,7 @@ public class ItemFilterShell {
         label.setText("Priority");
         combo = new Combo(child, SWT.DROP_DOWN);
         combo.add("ANY");
+        fields.add(combo);
         for (Item.PRIORITY priority : Item.PRIORITY.values()) {
             combo.add("" + priority);
         }
@@ -122,6 +133,33 @@ public class ItemFilterShell {
         combo.setLayoutData(gData);
         
         Button button = new Button(child, SWT.PUSH);
+        button.setText("Apply");
+        button.addSelectionListener(new SelectionAdapter() {
+           @Override
+            public void widgetSelected( SelectionEvent e ) {
+                super.widgetSelected(e);
+                tree.update();
+            }
+        });
+        button = new Button(child, SWT.PUSH);
+        button.setText("Reset");
+        button.addSelectionListener(new SelectionAdapter() {
+           @Override
+            public void widgetSelected( SelectionEvent e ) {
+                super.widgetSelected(e);
+                tree.getFilter().reset();
+                for (Control control : fields) {
+                    if (control instanceof Text) {
+                        ((Text)control).setText("");
+                    } else if (control instanceof Combo) {
+                        ((Combo)control).setText("ANY");
+                    }
+                    control.notifyListeners(SWT.Modify, new Event());
+                }
+                tree.update();
+            }
+        });
+        button = new Button(child, SWT.PUSH);
         button.setText("Close");
         button.addSelectionListener(new SelectionAdapter() {
            @Override
