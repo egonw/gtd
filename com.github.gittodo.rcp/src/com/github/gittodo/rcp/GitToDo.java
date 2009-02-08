@@ -24,6 +24,7 @@ public class GitToDo {
     public static void main( String[] args ) {
         final Display display = new Display();
         final Shell shell = new Shell(display);
+        shell.setText("Git ToDo");
         FillLayout layout = new FillLayout();
         shell.setLayout(layout);
         
