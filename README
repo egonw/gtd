@@ -7,8 +7,13 @@ automatic backup via Git clones.
 
 There currently are two clients, a command line client wrapped around
 the core libraries, and a RCP-based client which is not so fancy but
-does work. They are available from the subfolders:
+does work. A third program provides integration with FreeMind.
+
+They are available from the subfolders:
 
 com.github.gittodo
 com.github.gittodo.rcp
 com.github.gittodo.freemind
+
+Information in those folders explain how the software can be compiled,
+installed and run.
