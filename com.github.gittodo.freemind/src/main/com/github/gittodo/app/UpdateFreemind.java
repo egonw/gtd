@@ -1,5 +1,5 @@
 /*
- * Copyright 2008  Egon Willighagen <egonw@users.sf.net>
+ * Copyright 2008-2009  Egon Willighagen <egonw@users.sf.net>
  * 
  * License: LGPL v3
  */
@@ -19,7 +19,7 @@ public class UpdateFreemind {
         String fileStr = repos.getLocation() + File.separator + "all.mm";
         FreemindFile fmFile = new FreemindFile(new File(fileStr));
         for (IProject project : repos.projects().values()) {
-            fmFile.add(project);
+            if (project.getOpenCount() > 0) fmFile.add(project);
         }
         fmFile.save(new File(fileStr));
     }
