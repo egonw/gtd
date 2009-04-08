@@ -1,11 +1,13 @@
 /*
- * Copyright 2008  Egon Willighagen <egonw@users.sf.net>
+ * Copyright 2008-2009  Egon Willighagen <egonw@users.sf.net>
  *
  * License: LGPL v3
  */
 package com.github.gittodo.rcp.views;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -16,6 +18,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -24,39 +27,39 @@ import org.openscience.gittodo.model.Item;
 
 
 public class ItemEditShell {
-    
+
     private final Shell child;
     private final Item itemData;
     private final GitToDoTree tree;
     private final boolean isEditing;
-    
+
     public ItemEditShell(Shell parent, Item item, GitToDoTree someTree) throws Exception {
         isEditing = item != null;
         String title = (isEditing ? "New Item" : "Edit Item");
         this.tree = someTree;
-        
+
         if (item == null) {
             this.itemData = new Item();
         } else {
             this.itemData = item;
         }
-        
+
         boolean canEdit = itemData.getState() == Item.STATE.OPEN;
-        
+
         Label label;
         Combo combo;
         Text text;
-        
+
         GridData gData = new GridData();
         gData.horizontalAlignment = GridData.FILL;
         gData.grabExcessHorizontalSpace = true;
-        
+
         this.child = new Shell(parent);
         child.setText(title);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         this.child.setLayout(layout);
-        
+
         // now add the widgets
         label = new Label(child, SWT.LEFT);
         label.setText("Identifier");
@@ -89,7 +92,35 @@ public class ItemEditShell {
                 itemData.setProject(((Text)arg0.getSource()).getText());
             }
         });
-        
+
+        label = new Label(child, SWT.LEFT);
+        label.setText("URL");
+        text = new Text(child, SWT.FILL);
+        text.setText(itemData.getUrl() == null ? "" : item.getUrl().toString());
+        text.setEditable(canEdit);
+        text.setLayoutData(gData);
+        text.addModifyListener( new ModifyListener() {
+            public void modifyText( ModifyEvent arg0 ) {
+            	String urlText = ((Text)arg0.getSource()).getText();
+            	if (urlText == null || urlText.length() == 0) {
+            		itemData.setUrl(null);
+            	} else {
+            		try {
+            			URL url = new URL(urlText);
+            			itemData.setUrl(url);
+            			((Text)arg0.getSource()).setBackground(
+            					Display.getCurrent().getSystemColor(SWT.COLOR_WHITE)
+            			);
+            		} catch (MalformedURLException e) {
+            			((Text)arg0.getSource()).setBackground(
+            					Display.getCurrent().getSystemColor(SWT.COLOR_RED)
+            			);
+            			itemData.setUrl(null);
+            		}
+            	}
+            }
+        });
+
         label = new Label(child, SWT.LEFT);
         label.setText("Context");
         if (canEdit) {
@@ -117,7 +148,7 @@ public class ItemEditShell {
             text.setText("" + itemData.getContext());
             text.setLayoutData(gData);
         }
-        
+
         label = new Label(child, SWT.LEFT);
         label.setText("Priority");
         if (canEdit) {
@@ -142,7 +173,7 @@ public class ItemEditShell {
             text.setText("" + itemData.getPriority());
             text.setLayoutData(gData);
         }
-        
+
         Button button = new Button(child, SWT.CHECK);
         button.setText("Done");
         button.setSelection(itemData.getState() == Item.STATE.CLOSED);
@@ -155,13 +186,13 @@ public class ItemEditShell {
                  } else {
                      itemData.setState(Item.STATE.OPEN);
                  }
-             } 
+             }
          });GridData fullData = new GridData();
         fullData.horizontalAlignment = GridData.FILL;
         fullData.grabExcessHorizontalSpace = true;
         fullData.horizontalSpan = GridData.FILL;
         button.setLayoutData(fullData);
-        
+
         button = new Button(child, SWT.PUSH);
         button.setText("Cancel");
         button.addSelectionListener(new SelectionAdapter() {
@@ -169,7 +200,7 @@ public class ItemEditShell {
             public void widgetSelected( SelectionEvent e ) {
                 super.widgetSelected(e);
                 child.close();
-            } 
+            }
         });
         button = new Button(child, SWT.PUSH);
         button.setText("Save");
@@ -190,7 +221,7 @@ public class ItemEditShell {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-            } 
+            }
         });
         child.pack();
     }
@@ -198,5 +229,5 @@ public class ItemEditShell {
     public void open() {
         this.child.open();
     }
-    
+
 }
