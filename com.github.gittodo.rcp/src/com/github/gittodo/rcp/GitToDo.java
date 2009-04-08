@@ -27,9 +27,9 @@ public class GitToDo {
         shell.setText("Git ToDo");
         FillLayout layout = new FillLayout();
         shell.setLayout(layout);
-        
+
         final GitToDoTree tableViewer = new GitToDoTree(shell);
-        
+
         Menu menuBar = new Menu(shell, SWT.BAR);
         shell.setMenuBar( menuBar );
         MenuItem fileMenuItem = new MenuItem(menuBar, SWT.CASCADE);
@@ -48,7 +48,7 @@ public class GitToDo {
                     } catch ( Exception e ) {
                         e.printStackTrace();
                     }
-                }                
+                }
             }
         );
         MenuItem reloadItemMenu = new MenuItem(fileMenu, SWT.DROP_DOWN);
@@ -68,7 +68,7 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     shell.dispose();
-                }                
+                }
             }
         );
         MenuItem sortMenuItem = new MenuItem(menuBar, SWT.CASCADE);
@@ -82,7 +82,7 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     tableViewer.setActiveItems(ItemSorter.sortByPriority(tableViewer.getItems()));
-                }                
+                }
             }
         );
         MenuItem contextItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
@@ -92,7 +92,7 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     tableViewer.setActiveItems(ItemSorter.sortByContext(tableViewer.getItems()));
-                }                
+                }
             }
         );
         MenuItem projectItemMenu = new MenuItem(sortMenu, SWT.DROP_DOWN);
@@ -102,7 +102,7 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     tableViewer.setActiveItems(ItemSorter.sortByProject(tableViewer.getItems()));
-                }                
+                }
             }
         );
         MenuItem filterMenuItem = new MenuItem(menuBar, SWT.CASCADE);
@@ -121,7 +121,7 @@ public class GitToDo {
                     } catch ( Exception e ) {
                         e.printStackTrace();
                     }
-                }                
+                }
             }
         );
         MenuItem resetItemMenu = new MenuItem(filterMenu, SWT.DROP_DOWN);
@@ -142,5 +142,5 @@ public class GitToDo {
         }
         display.dispose();
     }
-    
+
 }
