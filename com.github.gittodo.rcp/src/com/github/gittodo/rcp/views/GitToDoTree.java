@@ -15,7 +15,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.openscience.gittodo.model.IGTDRepository;
@@ -28,12 +28,12 @@ public class GitToDoTree extends TableViewer {
     private final GitToDoTree gtdTree;
     private final GitToDoTreeFilter treeFilter;
     private final Table table;
-    private Shell shell;
+    private Composite shell;
     private List<Item> items;
     private List<Item> activeItems;
     private IGTDRepository repos;
     
-    public GitToDoTree(Shell parent) {
+    public GitToDoTree(Composite parent) {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
         this.treeFilter = new GitToDoTreeFilter();
         this.treeFilter.reset();

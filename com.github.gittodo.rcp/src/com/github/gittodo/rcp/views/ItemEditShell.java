@@ -22,6 +22,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -37,7 +38,7 @@ public class ItemEditShell {
     private final GitToDoTree tree;
     private final boolean isEditing;
 
-    public ItemEditShell(Shell parent, Item item, GitToDoTree someTree) throws Exception {
+    public ItemEditShell(Composite parent, Item item, GitToDoTree someTree) throws Exception {
         isEditing = item != null;
         String title = (isEditing ? "New Item" : "Edit Item");
         this.tree = someTree;
@@ -58,7 +59,7 @@ public class ItemEditShell {
         gData.horizontalAlignment = GridData.FILL;
         gData.grabExcessHorizontalSpace = true;
 
-        this.child = new Shell(parent);
+        this.child = new Shell();
         child.setText(title);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
