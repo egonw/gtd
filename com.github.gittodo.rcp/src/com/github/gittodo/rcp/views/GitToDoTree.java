@@ -48,13 +48,13 @@ public class GitToDoTree extends TableViewer {
         items.addAll(repos.items().values());
 
         String[] columnNames = new String[] {
-            "Created", "Project", "Context", "Priority", "Title"
+            "Created", "Deadline", "Project", "Context", "Priority", "Title"
         };
         int[] columnWidths = new int[] {
-            120, 150, 100, 100, 300
+            120, 120, 150, 100, 100, 300
         };
         int[] columnAlignments = new int[] {
-            SWT.RIGHT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.LEFT
+        	SWT.RIGHT, SWT.RIGHT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.LEFT
         };
         for (int i=0; i<columnNames.length; i++) {
             TableColumn column = new TableColumn(table, columnAlignments[i]);
@@ -117,15 +117,18 @@ public class GitToDoTree extends TableViewer {
                     setActiveItems(ItemSorter.sortByCreationDate(items));
                     break;
                 case 1:
-                    setActiveItems(ItemSorter.sortByProject(items));
+                    setActiveItems(ItemSorter.sortByDeadline(items));
                     break;
                 case 2:
-                    setActiveItems(ItemSorter.sortByContext(items));
+                    setActiveItems(ItemSorter.sortByProject(items));
                     break;
                 case 3:
-                    setActiveItems(ItemSorter.sortByPriority(items));
+                    setActiveItems(ItemSorter.sortByContext(items));
                     break;
                 case 4:
+                    setActiveItems(ItemSorter.sortByPriority(items));
+                    break;
+                case 5:
                     setActiveItems(ItemSorter.sortByTitle(items));
                     break;
                 default:

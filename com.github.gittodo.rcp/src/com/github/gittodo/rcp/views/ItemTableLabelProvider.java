@@ -22,12 +22,14 @@ public class ItemTableLabelProvider extends LabelProvider implements ITableLabel
             case 0:
                 return item.getCreationDate();
             case 1:
-                return item.getProject() == null ? "" : item.getProject();
+                return item.getDeadline() == null ? "" : item.getDeadline();
             case 2:
-                return item.getContext() == null ? "" : "" + item.getContext();
+                return item.getProject() == null ? "" : item.getProject();
             case 3:
-                return "" + item.getPriority();
+                return item.getContext() == null ? "" : "" + item.getContext();
             case 4:
+                return "" + item.getPriority();
+            case 5:
                 return item.getText();
             default:
                 return "no clue";

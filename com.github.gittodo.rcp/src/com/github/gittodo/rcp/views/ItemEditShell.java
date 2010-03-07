@@ -8,6 +8,10 @@ package com.github.gittodo.rcp.views;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -90,6 +94,38 @@ public class ItemEditShell {
         text.addModifyListener( new ModifyListener() {
             public void modifyText( ModifyEvent arg0 ) {
                 itemData.setProject(((Text)arg0.getSource()).getText());
+            }
+        });
+
+        label = new Label(child, SWT.LEFT);
+        label.setText("Deadline");
+        text = new Text(child, SWT.FILL);
+        text.setText(itemData.getDeadline() == null ? "" : item.getDeadline());
+        text.setEditable(canEdit);
+        text.setLayoutData(gData);
+        text.addModifyListener( new ModifyListener() {
+            public void modifyText( ModifyEvent arg0 ) {
+            	String dateText = ((Text)arg0.getSource()).getText();
+            	if (dateText == null || dateText.length() == 0) {
+            		itemData.setDeadline(null);
+        			((Text)arg0.getSource()).setBackground(
+        				Display.getCurrent().getSystemColor(SWT.COLOR_WHITE)
+        			);
+            	} else {
+            		try {
+            			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            			Date normalized = formatter.parse(dateText);
+            			itemData.setDeadline(formatter.format(normalized));
+            			((Text)arg0.getSource()).setBackground(
+            					Display.getCurrent().getSystemColor(SWT.COLOR_WHITE)
+            			);
+            		} catch (ParseException e) {
+            			((Text)arg0.getSource()).setBackground(
+            					Display.getCurrent().getSystemColor(SWT.COLOR_RED)
+            			);
+            			itemData.setDeadline(null);
+            		}
+            	}
             }
         });
 
