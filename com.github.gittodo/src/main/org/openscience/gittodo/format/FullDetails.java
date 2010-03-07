@@ -13,6 +13,7 @@ public class FullDetails {
 		StringBuffer result = new StringBuffer();
 		appendField(result, "Identifier", ""+item.hashCode());
 		appendField(result, "Created", item.getCreationDate());
+		appendField(result, "Deadline", (item.getDeadline() == null ? "" : ""+item.getDeadline()));
 		appendField(result, "Title", item.getText());
 		appendField(result, "State", ""+item.getState());
 		appendField(result, "Priority", ""+item.getPriority());

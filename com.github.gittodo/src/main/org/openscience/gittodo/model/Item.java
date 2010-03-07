@@ -48,7 +48,8 @@ public class Item {
 	 * Method primarily used by the {@link ItemReader} to set values.
 	 */
 	public Item(String creationDate, String text, STATE state, PRIORITY priority,
-			CONTEXT context, Integer hashcode, String project, URL url) {
+			CONTEXT context, Integer hashcode, String project, URL url,
+			String deadline) {
 		this.hasChanged = false;
 		this.creationDate = creationDate;
 		this.text = text;
@@ -58,6 +59,7 @@ public class Item {
 		this.identifier = hashcode;
 		this.project = project;
 		this.url = url;
+		this.deadline = deadline;
 	}
 	
 	private Integer identifier;
@@ -145,7 +147,7 @@ public class Item {
 
 	public void setPriority(PRIORITY priority) {
 		failWhenItemClosed();
-		if (this.priority != priority) {
+		if (this.priority != priority && this.deadline == null) {
 			this.priority = priority;
 			hasChanged = true;
 		}
@@ -161,6 +163,21 @@ public class Item {
 		failWhenItemClosed();
 		if (this.text == null || !this.text.equals(text)) {
 			this.text = text;
+			hasChanged = true;
+		}
+	}
+
+	private String deadline;
+
+	public String getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(String deadline) {
+		failWhenItemClosed();
+		if (this.deadline == null || !this.deadline.equals(deadline)) {
+			this.deadline = deadline;
+			setPriority(PRIORITY.URGENT);
 			hasChanged = true;
 		}
 	}

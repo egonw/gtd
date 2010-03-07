@@ -21,6 +21,10 @@ public class OneLiner {
 		result.append(" ");
 		result.append(item.getCreationDate());
 		result.append(" ");
+		result.append(FormatHelpers.formatString(
+			item.getDeadline() == null ? "" : item.getDeadline(), 9)
+		);
+		result.append(" ");
 		result.append(item.getText());
 		return result.toString();
 	}

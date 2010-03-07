@@ -74,7 +74,8 @@ public class ItemReader {
 			itemProps.getProperty("Text"),
 			state, priority, context, hashcode,
 			itemProps.getProperty("Project"),
-			url
+			url,
+			itemProps.getProperty("Deadline")
 		);
 		return item;
 	}

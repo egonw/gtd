@@ -52,6 +52,7 @@ public class ItemWriter {
 		if (item.getUrl() != null) itemProps.put("URL", item.getUrl().toString());
 		if (item.getProject() != null) itemProps.put("Project", item.getProject());
 		if (item.getContext() != null) itemProps.put("Context", "" + item.getContext());
+		if (item.getDeadline() != null) itemProps.put("Deadline", item.getDeadline());
 		itemProps.store(writer, "gittodo v1");
 	}
 
