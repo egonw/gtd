@@ -98,4 +98,19 @@ public class ItemSorter {
         return unsorted;
     }
 
+    public static List<Item> sortByDeadline(List<Item> unsorted) {
+        Collections.sort(unsorted, new Comparator<Item>() {
+            public int compare(Item item0, Item item1) {
+                String date0 = item0.getDeadline();
+                String date1 = item1.getDeadline();
+                if (date0 == null && date1 == null) return 0;
+                if (date0 == null) return 1;
+                if (date1 == null) return -1;
+                return (date0.compareTo(date1));
+            }     
+        }
+        );
+        return unsorted;
+    }
+
 }
