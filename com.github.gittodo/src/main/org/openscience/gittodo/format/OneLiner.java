@@ -22,7 +22,7 @@ public class OneLiner {
 		result.append(item.getCreationDate());
 		result.append(" ");
 		result.append(FormatHelpers.formatString(
-			item.getDeadline() == null ? "" : item.getDeadline(), 9)
+			item.getDeadline() == null ? "" : item.getDeadline(), 10)
 		);
 		result.append(" ");
 		result.append(item.getText());
