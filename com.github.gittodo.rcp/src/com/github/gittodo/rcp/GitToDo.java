@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.openscience.gittodo.sort.ItemSorter;
 
 import com.github.gittodo.rcp.views.GitToDoTree;
@@ -28,7 +30,12 @@ public class GitToDo {
         FillLayout layout = new FillLayout();
         shell.setLayout(layout);
 
-        final GitToDoTree tableViewer = new GitToDoTree(shell);
+        TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
+        TabItem item = new TabItem(tabFolder, SWT.NONE);
+        item.setText("TODO List");
+
+        final GitToDoTree tableViewer = new GitToDoTree(tabFolder);
+        item.setControl(tableViewer.getTable()); // Possible setControl call?
 
         Menu menuBar = new Menu(shell, SWT.BAR);
         shell.setMenuBar( menuBar );
