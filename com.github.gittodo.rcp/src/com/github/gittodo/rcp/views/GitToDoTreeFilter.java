@@ -77,8 +77,10 @@ public class GitToDoTreeFilter {
         if (priorityFilter != null && item.getPriority() != null &&
                 item.getPriority() != priorityFilter) return false;
         if (substringFilter != null && substringFilter.length() > 0) {
-            if (item.getText() != null && !item.getText().contains(substringFilter) &&
-                !(item.getProject() != null && item.getProject().contains(substringFilter)))
+            if (item.getText() != null &&
+            	!item.getText().toLowerCase().contains(substringFilter.toLowerCase()) &&
+                !(item.getProject() != null &&
+                  item.getProject().toLowerCase().contains(substringFilter.toLowerCase())))
                 return false;
         }
         if (projectFilter != null && projectFilter.length() > 0) {
