@@ -89,7 +89,11 @@ public class ItemEditShell {
         label = new Label(child, SWT.LEFT);
         label.setText("Project");
         text = new Text(child, SWT.FILL);
-        text.setText(itemData.getProject() == null ? "" : item.getProject());
+        if (isEditing) {
+        	text.setText(itemData.getProject() == null ? "" : item.getProject());
+        } else if (someTree.getFilter().getProjectFilter() != null) {
+        	text.setText(someTree.getFilter().getProjectFilter());
+        }
         text.setEditable(canEdit);
         text.setLayoutData(gData);
         text.addModifyListener( new ModifyListener() {
