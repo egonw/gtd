@@ -85,7 +85,7 @@ public class GitToDoTreeFilter {
         }
         if (projectFilter != null && projectFilter.length() > 0) {
             if (item.getProject() == null ||
-                !(item.getProject().contains(projectFilter)))
+                !(item.getProject().toLowerCase().contains(projectFilter.toLowerCase())))
                 return false;
         }
         return true;
