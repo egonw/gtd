@@ -28,7 +28,7 @@ public class ItemFilterShell {
     
     private final Shell child;
     private final GitToDoTree tree;
-    
+
     private List<Control> fields;
 
     public ItemFilterShell(Shell parent, GitToDoTree someTree) throws Exception {
@@ -67,7 +67,6 @@ public class ItemFilterShell {
                 }
             }
         });
-
         label = new Label(child, SWT.LEFT);
         label.setText("Project");
         text = new Text(child, SWT.FILL);
@@ -84,6 +83,16 @@ public class ItemFilterShell {
                 }
             }
         });
+        new Label(child, SWT.LEFT);
+        Button caseSensitive = new Button(child, SWT.CHECK);
+        caseSensitive.setText("Case senstive");
+        caseSensitive.setSelection(tree.getFilter().isCaseSenstive());
+        caseSensitive.addSelectionListener(new SelectionAdapter() {
+        	public void widgetSelected(SelectionEvent e) {
+        		Button button = (Button)e.getSource();
+        		tree.getFilter().setCaseSenstive(button.getSelection());
+        	}
+		});
         
         label = new Label(child, SWT.LEFT);
         label.setText("Context");

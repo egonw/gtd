@@ -67,7 +67,10 @@ public class GitToDoTreeFilter {
         priorityFilter = null;
         substringFilter = null;
         projectFilter = null;
+        isCaseSenstive = true;
     }
+
+    private boolean isCaseSenstive = false; // default match case insensitive 
     
     public boolean matches(Item item) {
         if (item.getState() == Item.STATE.CLOSED) return false;
@@ -77,17 +80,35 @@ public class GitToDoTreeFilter {
         if (priorityFilter != null && item.getPriority() != null &&
                 item.getPriority() != priorityFilter) return false;
         if (substringFilter != null && substringFilter.length() > 0) {
-            if (item.getText() != null &&
-            	!item.getText().toLowerCase().contains(substringFilter.toLowerCase()) &&
-                !(item.getProject() != null &&
-                  item.getProject().toLowerCase().contains(substringFilter.toLowerCase())))
-                return false;
+        	if (item.getText() != null) {
+        		if (isCaseSenstive) {
+        			if (!item.getText().contains(substringFilter)) return false;
+        		} else {
+        			if (!item.getText().toLowerCase().contains(substringFilter.toLowerCase()))
+        				return false;
+        		}        			
+        	}
         }
         if (projectFilter != null && projectFilter.length() > 0) {
-            if (item.getProject() == null ||
-                !(item.getProject().toLowerCase().contains(projectFilter.toLowerCase())))
-                return false;
+        	if (item.getProject() != null) {
+        		if (isCaseSenstive) {
+        			if (!item.getProject().contains(projectFilter)) return false;
+        		} else {
+        			if (!item.getProject().toLowerCase().contains(projectFilter.toLowerCase()))
+        				return false;
+        		}        			
+        	}
         }
         return true;
     }
+
+
+	public void setCaseSenstive(boolean isCaseSenstive) {
+		this.isCaseSenstive = isCaseSenstive;
+	}
+
+
+	public boolean isCaseSenstive() {
+		return isCaseSenstive;
+	}
 }
