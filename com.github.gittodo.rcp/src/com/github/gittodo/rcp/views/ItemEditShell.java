@@ -93,6 +93,7 @@ public class ItemEditShell {
         	text.setText(itemData.getProject() == null ? "" : item.getProject());
         } else if (someTree.getFilter().getProjectFilter() != null) {
         	text.setText(someTree.getFilter().getProjectFilter());
+        	itemData.setProject(someTree.getFilter().getProjectFilter());
         }
         text.setEditable(canEdit);
         text.setLayoutData(gData);
