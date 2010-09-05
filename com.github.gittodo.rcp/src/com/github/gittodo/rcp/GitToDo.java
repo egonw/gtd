@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.openscience.gittodo.model.Item.BOX;
 import org.openscience.gittodo.sort.ItemSorter;
 
 import com.github.gittodo.rcp.views.GitToDoTree;
@@ -23,19 +24,42 @@ import com.github.gittodo.rcp.views.ItemFilterShell;
 
 public class GitToDo {
 
-    public static void main( String[] args ) {
-        final Display display = new Display();
-        final Shell shell = new Shell(display);
+	private final Display display;
+	private final Shell shell;
+
+	// the various BOXes
+	private final GitToDoTree tableViewer;
+	private final GitToDoTree inboxTableViewer;
+	private final GitToDoTree waitTableViewer;
+	private final GitToDoTree maybeTableViewer;
+
+	public GitToDo() {
+        display = new Display();
+        shell = new Shell(display);
         shell.setText("Git ToDo");
         FillLayout layout = new FillLayout();
         shell.setLayout(layout);
 
         TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
         TabItem item = new TabItem(tabFolder, SWT.NONE);
-        item.setText("TODO List");
-
-        final GitToDoTree tableViewer = new GitToDoTree(tabFolder);
+        item.setText("Active");
+        tableViewer = new GitToDoTree(tabFolder, BOX.ACTIVE);
         item.setControl(tableViewer.getTable()); // Possible setControl call?
+
+        TabItem inboxItem = new TabItem(tabFolder, SWT.NONE);
+        inboxItem.setText("Inbox");
+        inboxTableViewer = new GitToDoTree(tabFolder, BOX.INBOX);
+        inboxItem.setControl(inboxTableViewer.getTable()); // Possible setControl call?
+
+        TabItem waitItem = new TabItem(tabFolder, SWT.NONE);
+        waitItem.setText("Waiting");
+        waitTableViewer = new GitToDoTree(tabFolder, BOX.WAITING);
+        waitItem.setControl(waitTableViewer.getTable()); // Possible setControl call?
+
+        TabItem maybeItem = new TabItem(tabFolder, SWT.NONE);
+        maybeItem.setText("Maybe");
+        maybeTableViewer = new GitToDoTree(tabFolder, BOX.MAYBE);
+        maybeItem.setControl(maybeTableViewer.getTable()); // Possible setControl call?
 
         Menu menuBar = new Menu(shell, SWT.BAR);
         shell.setMenuBar( menuBar );
@@ -50,7 +74,9 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     try {
-                        ItemEditShell child = new ItemEditShell(shell, null, tableViewer);
+                        ItemEditShell child = new ItemEditShell(
+                        	shell, null, tableViewer
+                        );
                         child.open();
                     } catch ( Exception e ) {
                         e.printStackTrace();
@@ -65,6 +91,9 @@ public class GitToDo {
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
                     tableViewer.reload();
+                    inboxTableViewer.reload();
+                    waitTableViewer.reload();
+                    maybeTableViewer.reload();
                 }
             }
         );
@@ -137,17 +166,51 @@ public class GitToDo {
         resetItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
-                    tableViewer.getFilter().reset();
-                    tableViewer.update();
+                    resetBoxFilters();
                 }
             }
         );
 
         shell.open();
-        while (!shell.isDisposed()) {
-            if (!display.readAndDispatch()) display.sleep();
+	}
+	
+	public void resetBoxFilters() {
+        tableViewer.getFilter().reset();
+        inboxTableViewer.getFilter().reset();
+        waitTableViewer.getFilter().reset();
+        maybeTableViewer.getFilter().reset();
+        updateBoxes();
+	}
+
+	public void updateBoxes() {
+        tableViewer.update();
+        inboxTableViewer.update();
+        waitTableViewer.update();
+        maybeTableViewer.update();
+	}
+	
+	public boolean isDisposed() {
+		return shell.isDisposed();
+	}
+	
+	public void dispose() {
+		display.dispose();
+	}
+
+    public static void main( String[] args ) {
+    	GitToDo gtd = new GitToDo();
+        while (!gtd.isDisposed()) {
+            if (!gtd.readAndDispatch()) gtd.sleep();
         }
-        display.dispose();
+        gtd.dispose();
     }
+
+	private void sleep() {
+		display.sleep();
+	}
+
+	private boolean readAndDispatch() {
+		return display.readAndDispatch();
+	}
 
 }

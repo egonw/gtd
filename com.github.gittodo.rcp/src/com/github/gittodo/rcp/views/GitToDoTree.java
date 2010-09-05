@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.openscience.gittodo.model.IGTDRepository;
 import org.openscience.gittodo.model.Item;
+import org.openscience.gittodo.model.Item.BOX;
 import org.openscience.gittodo.model.Repository;
 import org.openscience.gittodo.sort.ItemSorter;
 
@@ -33,9 +34,9 @@ public class GitToDoTree extends TableViewer {
     private List<Item> activeItems;
     private IGTDRepository repos;
     
-    public GitToDoTree(Composite parent) {
+    public GitToDoTree(Composite parent, BOX box) {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
-        this.treeFilter = new GitToDoTreeFilter();
+        this.treeFilter = new GitToDoTreeFilter(box);
         this.treeFilter.reset();
         this.shell = parent;
         this.gtdTree = this;

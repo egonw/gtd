@@ -216,6 +216,31 @@ public class ItemEditShell {
             text.setLayoutData(gData);
         }
 
+        label = new Label(child, SWT.LEFT);
+        label.setText("Box");
+        if (canEdit) {
+            combo = new Combo(child, SWT.DROP_DOWN);
+            for (Item.BOX priority : Item.BOX.values()) {
+                combo.add("" + priority);
+            }
+            if (itemData.getBox() != null) combo.setText("" + itemData.getBox());
+            combo.setLayoutData(gData);
+            combo.addModifyListener( new ModifyListener() {
+                public void modifyText( ModifyEvent arg0 ) {
+                    Combo source = (Combo)arg0.getSource();
+                    int index = source.getSelectionIndex();
+                    if (index != -1) {
+                        itemData.setBox(Item.BOX.values()[index]);
+                    }
+                }
+            });
+        } else {
+            text = new Text(child, SWT.SINGLE);
+            text.setEditable(canEdit);
+            text.setText("" + itemData.getBox());
+            text.setLayoutData(gData);
+        }
+
         Button button = new Button(child, SWT.CHECK);
         button.setText("Done");
         button.setSelection(itemData.getState() == Item.STATE.CLOSED);
@@ -229,7 +254,9 @@ public class ItemEditShell {
                      itemData.setState(Item.STATE.OPEN);
                  }
              }
-         });GridData fullData = new GridData();
+         });
+
+        GridData fullData = new GridData();
         fullData.horizontalAlignment = GridData.FILL;
         fullData.grabExcessHorizontalSpace = true;
         fullData.horizontalSpan = GridData.FILL;

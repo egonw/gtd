@@ -6,12 +6,18 @@
 package com.github.gittodo.rcp.views;
 
 import org.openscience.gittodo.model.Item;
+import org.openscience.gittodo.model.Item.BOX;
 
 public class GitToDoTreeFilter {
 
     private Item.CONTEXT contextFilter;
+    private Item.BOX     box;
     
-    public Item.CONTEXT getContextFilter() {
+    public GitToDoTreeFilter(BOX box) {
+		this.box = box;
+	}
+
+	public Item.CONTEXT getContextFilter() {
     
         return contextFilter;
     }
@@ -74,6 +80,8 @@ public class GitToDoTreeFilter {
     
     public boolean matches(Item item) {
         if (item.getState() == Item.STATE.CLOSED) return false;
+        if (item.getBox() != this.box) return false;
+
         if (contextFilter != null && item.getContext() != null &&
             item.getContext() != contextFilter) return false;
         if (contextFilter != null && item.getContext() == null) return false;
