@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src/main"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/usr/share/java/commons-cli.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/net.bioclipse.xom"/>
+	<classpathentry kind="lib" path="jar/xom-1.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.github.gittodo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
