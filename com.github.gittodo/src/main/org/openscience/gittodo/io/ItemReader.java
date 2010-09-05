@@ -64,6 +64,19 @@ public class ItemReader {
 				context =  Item.CONTEXT.WORK;
 			}
 		}
+		Item.BOX box = Item.BOX.ACTIVE;
+		if (itemProps.containsKey("Box")) {
+			String contextStr = itemProps.getProperty("Box");
+			if ("ACTIVE".equals(contextStr)) {
+				box = Item.BOX.ACTIVE;
+			} else if ("INBOX".equals(contextStr)) {
+				box = Item.BOX.INBOX;
+			} else if ("MAYBE".equals(contextStr)) {
+				box = Item.BOX.MAYBE;
+			} else if ("WAITING".equals(contextStr)) {
+				box = Item.BOX.WAITING;
+			}
+		}
 		URL url = null;
 		if (itemProps.containsKey("URL")) {
 			String urlStr = itemProps.getProperty("URL");
@@ -72,7 +85,7 @@ public class ItemReader {
 		Item item =  new Item(
 			itemProps.getProperty("CreationDate"),
 			itemProps.getProperty("Text"),
-			state, priority, context, hashcode,
+			box, state, priority, context, hashcode,
 			itemProps.getProperty("Project"),
 			url,
 			itemProps.getProperty("Deadline")

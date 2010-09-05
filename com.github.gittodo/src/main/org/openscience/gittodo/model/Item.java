@@ -47,12 +47,13 @@ public class Item {
 	/**
 	 * Method primarily used by the {@link ItemReader} to set values.
 	 */
-	public Item(String creationDate, String text, STATE state, PRIORITY priority,
+	public Item(String creationDate, String text, BOX box, STATE state, PRIORITY priority,
 			CONTEXT context, Integer hashcode, String project, URL url,
 			String deadline) {
 		this.hasChanged = false;
 		this.creationDate = creationDate;
 		this.text = text;
+		this.box = box;
 		this.state = state;
 		this.priority = priority;
 		this.context = context;
@@ -153,6 +154,28 @@ public class Item {
 		}
 	}
 	
+	/** Allowed priorities sorted in decreasing priority. **/
+	public static enum BOX {
+		INBOX,
+		ACTIVE,
+		WAITING,
+		MAYBE
+	}
+	
+	private BOX box;
+
+	public BOX getBox() {
+		return box;
+	}
+
+	public void setBox(BOX box) {
+		failWhenItemClosed();
+		if (this.box != box) {
+			this.box = box;
+			hasChanged = true;
+		}
+	}
+
 	private String text;
 
 	public String getText() {

@@ -97,6 +97,7 @@ public class Repository implements IGTDRepository {
 					);
 					Item item = reader.read();
 					items.put(item.hashCode(), item);
+					reader.close();
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
