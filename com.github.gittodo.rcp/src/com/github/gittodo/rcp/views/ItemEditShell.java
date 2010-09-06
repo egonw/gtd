@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.openscience.gittodo.io.ItemWriter;
 import org.openscience.gittodo.model.Item;
+import org.openscience.gittodo.model.Item.BOX;
 
 
 public class ItemEditShell {
@@ -45,6 +46,7 @@ public class ItemEditShell {
 
         if (item == null) {
             this.itemData = new Item();
+            this.itemData.setBox(BOX.INBOX);
         } else {
             this.itemData = item;
         }
