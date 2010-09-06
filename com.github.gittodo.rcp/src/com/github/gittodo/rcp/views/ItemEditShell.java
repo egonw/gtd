@@ -1,5 +1,4 @@
-/*
- * Copyright 2008-2009  Egon Willighagen <egonw@users.sf.net>
+/* Copyright 2008-2010  Egon Willighagen <egonw@users.sf.net>
  *
  * License: LGPL v3
  */
@@ -30,6 +29,7 @@ import org.eclipse.swt.widgets.Text;
 import org.openscience.gittodo.io.ItemWriter;
 import org.openscience.gittodo.model.Item;
 import org.openscience.gittodo.model.Item.BOX;
+import org.openscience.gittodo.model.Item.STATE;
 
 
 public class ItemEditShell {
@@ -38,6 +38,7 @@ public class ItemEditShell {
     private final Item itemData;
     private final GitToDoTree tree;
     private final boolean isEditing;
+    private boolean itemIsClosed;
 
     public ItemEditShell(Composite parent, Item item, GitToDoTree someTree) throws Exception {
         isEditing = item != null;
@@ -47,11 +48,13 @@ public class ItemEditShell {
         if (item == null) {
             this.itemData = new Item();
             this.itemData.setBox(BOX.INBOX);
+            itemIsClosed = false;
         } else {
             this.itemData = item;
+            itemIsClosed = (item.getState() == STATE.CLOSED);
         }
 
-        boolean canEdit = itemData.getState() == Item.STATE.OPEN;
+        boolean canEdit = !itemIsClosed;
 
         Label label;
         Combo combo;
@@ -245,15 +248,15 @@ public class ItemEditShell {
 
         Button button = new Button(child, SWT.CHECK);
         button.setText("Done");
-        button.setSelection(itemData.getState() == Item.STATE.CLOSED);
+        button.setSelection(itemIsClosed);
         button.addSelectionListener(new SelectionAdapter() {
             @Override
              public void widgetSelected( SelectionEvent e ) {
                  super.widgetSelected(e);
                  if (((Button)e.getSource()).getSelection()) {
-                     itemData.setState(Item.STATE.CLOSED);
+                	 itemIsClosed = true;
                  } else {
-                     itemData.setState(Item.STATE.OPEN);
+                     itemIsClosed = false;
                  }
              }
          });
@@ -280,7 +283,13 @@ public class ItemEditShell {
             public void widgetSelected( SelectionEvent e ) {
                 super.widgetSelected(e);
                 try {
-                    if (itemData.isChanged()) {
+                    if (itemData.isChanged() ||
+                    	itemIsClosed != (itemData.getState() == STATE.CLOSED)) {
+                    	if (itemIsClosed) {
+                    		itemData.setState(STATE.CLOSED);
+                    	} else {
+                    		itemData.setState(STATE.OPEN);
+                    	}
                         ItemWriter writer = new ItemWriter(itemData);
                         writer.write();
                         writer.close();
