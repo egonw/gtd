@@ -1,5 +1,4 @@
-/*
- * Copyright 2008  Egon Willighagen <egonw@users.sf.net>
+/* Copyright 2008-2010  Egon Willighagen <egonw@users.sf.net>
  *
  * License: LGPL v3
  */
