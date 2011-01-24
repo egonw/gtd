@@ -40,6 +40,8 @@ public class ItemEditShell {
     private final boolean isEditing;
     private boolean itemIsClosed;
 
+    private Combo boxCombo;
+
     public ItemEditShell(Composite parent, Item item, GitToDoTree someTree) throws Exception {
         isEditing = item != null;
         String title = (isEditing ? "New Item" : "Edit Item");
@@ -128,14 +130,15 @@ public class ItemEditShell {
             			Date normalized = formatter.parse(dateText);
             			itemData.setDeadline(formatter.format(normalized));
             			((Text)arg0.getSource()).setBackground(
-            					Display.getCurrent().getSystemColor(SWT.COLOR_WHITE)
+            				Display.getCurrent().getSystemColor(SWT.COLOR_WHITE)
             			);
             		} catch (ParseException e) {
             			((Text)arg0.getSource()).setBackground(
-            					Display.getCurrent().getSystemColor(SWT.COLOR_RED)
+            				Display.getCurrent().getSystemColor(SWT.COLOR_RED)
             			);
             			itemData.setDeadline(null);
             		}
+        			updateBox();
             	}
             }
         });
@@ -211,6 +214,7 @@ public class ItemEditShell {
                     int index = source.getSelectionIndex();
                     if (index != -1) {
                         itemData.setPriority(Item.PRIORITY.values()[index]);
+                        updateBox();
                     }
                 }
             });
@@ -224,13 +228,13 @@ public class ItemEditShell {
         label = new Label(child, SWT.LEFT);
         label.setText("Box");
         if (canEdit) {
-            combo = new Combo(child, SWT.DROP_DOWN);
+        	boxCombo = new Combo(child, SWT.DROP_DOWN);
             for (Item.BOX priority : Item.BOX.values()) {
-                combo.add("" + priority);
+            	boxCombo.add("" + priority);
             }
-            if (itemData.getBox() != null) combo.setText("" + itemData.getBox());
-            combo.setLayoutData(gData);
-            combo.addModifyListener( new ModifyListener() {
+            if (itemData.getBox() != null) boxCombo.setText("" + itemData.getBox());
+            boxCombo.setLayoutData(gData);
+            boxCombo.addModifyListener( new ModifyListener() {
                 public void modifyText( ModifyEvent arg0 ) {
                     Combo source = (Combo)arg0.getSource();
                     int index = source.getSelectionIndex();
@@ -308,6 +312,10 @@ public class ItemEditShell {
 
     public void open() {
         this.child.open();
+    }
+
+    public void updateBox() {
+    	if (itemData.getBox() != null) boxCombo.setText("" + itemData.getBox());
     }
 
 }
