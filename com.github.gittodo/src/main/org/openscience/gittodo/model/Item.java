@@ -1,5 +1,4 @@
-/*
- * Copyright 2008  Egon Willighagen <egonw@users.sf.net>
+/* Copyright 2008-2011  Egon Willighagen <egonw@users.sf.net>
  * 
  * License: LGPL v3
  */
@@ -14,7 +13,7 @@ import org.openscience.gittodo.io.ItemReader;
 public class Item {
 	
 	private boolean hasChanged;
-	
+
     @SuppressWarnings("deprecation")
     public Item() throws Exception {
         // set a creation date
@@ -151,6 +150,14 @@ public class Item {
 		if (this.priority != priority && this.deadline == null) {
 			this.priority = priority;
 			hasChanged = true;
+			if (PRIORITY.DELAYED == priority ||
+				PRIORITY.LOW == priority) {
+				setBox(BOX.WAITING);
+			} else if (PRIORITY.UNSET == priority){
+				setBox(BOX.INBOX);
+			} else {
+				setBox(BOX.ACTIVE);
+			}
 		}
 	}
 	
@@ -202,6 +209,7 @@ public class Item {
 			this.deadline = deadline;
 			setPriority(PRIORITY.URGENT);
 			hasChanged = true;
+			setBox(BOX.ACTIVE);
 		}
 	}
 
