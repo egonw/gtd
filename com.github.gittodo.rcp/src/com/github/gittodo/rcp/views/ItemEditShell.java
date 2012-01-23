@@ -67,6 +67,7 @@ public class ItemEditShell {
         gData.grabExcessHorizontalSpace = true;
 
         this.child = new Shell();
+        this.child.setSize(700, 300);
         child.setText(title);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
@@ -307,7 +308,6 @@ public class ItemEditShell {
                 }
             }
         });
-        child.pack();
     }
 
     public void open() {
