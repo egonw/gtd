@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.openscience.gittodo.model.Item.BOX;
+import org.openscience.gittodo.model.Item.PRIORITY;
 import org.openscience.gittodo.sort.ItemSorter;
 
 import com.github.gittodo.rcp.views.GitToDoTree;
@@ -27,6 +28,8 @@ public class GitToDo {
 	private final Shell shell;
 
 	// the various BOXes
+	private final GitToDoTree todayTableViewer;
+	private final GitToDoTree urgentTableViewer;
 	private final GitToDoTree tableViewer;
 	private final GitToDoTree inboxTableViewer;
 	private final GitToDoTree waitTableViewer;
@@ -40,6 +43,16 @@ public class GitToDo {
         shell.setLayout(layout);
 
         TabFolder tabFolder = new TabFolder(shell, SWT.NONE);
+        TabItem todayItem = new TabItem(tabFolder, SWT.NONE);
+        todayItem.setText("Today");
+        todayTableViewer = new GitToDoTree(tabFolder, BOX.ACTIVE, PRIORITY.TODAY);
+        todayItem.setControl(todayTableViewer.getTable()); // Possible setControl call?
+
+        TabItem urgentItem = new TabItem(tabFolder, SWT.NONE);
+        urgentItem.setText("Urgent");
+        urgentTableViewer = new GitToDoTree(tabFolder, BOX.ACTIVE, PRIORITY.URGENT);
+        urgentItem.setControl(urgentTableViewer.getTable()); // Possible setControl call?
+
         TabItem item = new TabItem(tabFolder, SWT.NONE);
         item.setText("Active");
         tableViewer = new GitToDoTree(tabFolder, BOX.ACTIVE);
