@@ -102,6 +102,8 @@ public class GitToDo {
         reloadItemMenu.addSelectionListener(
             new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent event) {
+                    urgentTableViewer.reload();
+                    todayTableViewer.reload();
                     tableViewer.reload();
                     inboxTableViewer.reload();
                     waitTableViewer.reload();

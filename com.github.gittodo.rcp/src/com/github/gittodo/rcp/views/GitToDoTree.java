@@ -33,6 +33,7 @@ public class GitToDoTree extends TableViewer {
     private Composite shell;
     private List<Item> items;
     private List<Item> activeItems;
+    private int activeSortColumn;
     private IGTDRepository repos;
     
     public GitToDoTree(Composite parent, BOX box) {
@@ -88,7 +89,10 @@ public class GitToDoTree extends TableViewer {
         
         this.setLabelProvider(new ItemTableLabelProvider());
         this.setContentProvider(new ArrayContentProvider());
-        setActiveItems(items);
+
+        // sort on priority
+        activeSortColumn = 4;
+        setActiveItems(ItemSorter.sortByPriority(items));
     }
 
 	public List<Item> getItems() {
@@ -121,35 +125,41 @@ public class GitToDoTree extends TableViewer {
 
         public void widgetSelected( SelectionEvent arg0 ) {
             System.out.println("Column selected: " + arg0.getClass().getName());
-            switch (colIndex) {
-                case 0:
-                    setActiveItems(ItemSorter.sortByCreationDate(items));
-                    break;
-                case 1:
-                    setActiveItems(ItemSorter.sortByDeadline(items));
-                    break;
-                case 2:
-                    setActiveItems(ItemSorter.sortByProject(items));
-                    break;
-                case 3:
-                    setActiveItems(ItemSorter.sortByContext(items));
-                    break;
-                case 4:
-                    setActiveItems(ItemSorter.sortByPriority(items));
-                    break;
-                case 5:
-                    setActiveItems(ItemSorter.sortByTitle(items));
-                    break;
-                default:
-                    return;            
-            }
+            activeSortColumn = colIndex;
+            sortByColumn(colIndex);
         }
     }
     
-    public void reload() {
+	private void sortByColumn(int colIndex) {
+		switch (colIndex) {
+            case 0:
+                setActiveItems(ItemSorter.sortByCreationDate(items));
+                break;
+            case 1:
+                setActiveItems(ItemSorter.sortByDeadline(items));
+                break;
+            case 2:
+                setActiveItems(ItemSorter.sortByProject(items));
+                break;
+            case 3:
+                setActiveItems(ItemSorter.sortByContext(items));
+                break;
+            case 4:
+                setActiveItems(ItemSorter.sortByPriority(items));
+                break;
+            case 5:
+                setActiveItems(ItemSorter.sortByTitle(items));
+                break;
+            default:
+                return;            
+        }
+	}
+
+	public void reload() {
         repos.reload();
         items.clear();
         items.addAll(repos.items().values());
+        sortByColumn(activeSortColumn);
         update();
     }
 
