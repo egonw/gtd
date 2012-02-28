@@ -29,6 +29,7 @@ public class GitToDo {
 
 	// the various BOXes
 	private final GitToDoTree todayTableViewer;
+	private final GitToDoTree deadlineTableViewer;
 	private final GitToDoTree urgentTableViewer;
 	private final GitToDoTree tableViewer;
 	private final GitToDoTree inboxTableViewer;
@@ -47,6 +48,11 @@ public class GitToDo {
         todayItem.setText("Today");
         todayTableViewer = new GitToDoTree(tabFolder, BOX.ACTIVE, PRIORITY.TODAY);
         todayItem.setControl(todayTableViewer.getTable()); // Possible setControl call?
+
+        TabItem deadlineItem = new TabItem(tabFolder, SWT.NONE);
+        deadlineItem.setText("Deadlines");
+        deadlineTableViewer = new GitToDoTree(tabFolder, BOX.ACTIVE, true);
+        deadlineItem.setControl(deadlineTableViewer.getTable()); // Possible setControl call?
 
         TabItem urgentItem = new TabItem(tabFolder, SWT.NONE);
         urgentItem.setText("Urgent");
@@ -104,6 +110,7 @@ public class GitToDo {
                 public void widgetSelected(SelectionEvent event) {
                     urgentTableViewer.reload();
                     todayTableViewer.reload();
+                    deadlineTableViewer.reload();
                     tableViewer.reload();
                     inboxTableViewer.reload();
                     waitTableViewer.reload();
@@ -189,6 +196,9 @@ public class GitToDo {
 	}
 	
 	public void resetBoxFilters() {
+        todayTableViewer.getFilter().reset();
+        deadlineTableViewer.getFilter().reset();
+        urgentTableViewer.getFilter().reset();
         tableViewer.getFilter().reset();
         inboxTableViewer.getFilter().reset();
         waitTableViewer.getFilter().reset();
@@ -197,6 +207,9 @@ public class GitToDo {
 	}
 
 	public void updateBoxes() {
+        todayTableViewer.update();
+        deadlineTableViewer.update();
+        urgentTableViewer.update();
         tableViewer.update();
         inboxTableViewer.update();
         waitTableViewer.update();

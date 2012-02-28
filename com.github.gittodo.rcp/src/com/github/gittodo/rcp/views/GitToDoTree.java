@@ -35,16 +35,25 @@ public class GitToDoTree extends TableViewer {
     private List<Item> activeItems;
     private int activeSortColumn;
     private IGTDRepository repos;
-    
+
     public GitToDoTree(Composite parent, BOX box) {
 		this(parent, box, null);
     }
 
+    public GitToDoTree(Composite parent, BOX box, boolean withDeadline) {
+		this(parent, box, null, withDeadline);
+    }
+
     public GitToDoTree(Composite parent, BOX box, PRIORITY priority) {
+    	this(parent, box, priority, false);
+    }
+
+    public GitToDoTree(Composite parent, BOX box, PRIORITY priority, boolean withDeadline) {
         super(parent, SWT.SINGLE | SWT.FULL_SELECTION | SWT.FILL);
 
         this.treeFilter = new GitToDoTreeFilter(box);
         this.treeFilter.reset();
+        this.treeFilter.setWithDeadline(withDeadline);
         if (priority != null) this.treeFilter.setPriorityFilter(priority);
 
         this.shell = parent;

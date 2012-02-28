@@ -77,10 +77,15 @@ public class GitToDoTreeFilter {
     }
 
     private boolean isCaseSenstive = false; // default match case insensitive 
+	private boolean withDeadline;
     
     public boolean matches(Item item) {
         if (item.getState() == Item.STATE.CLOSED) return false;
         if (item.getBox() != this.box) return false;
+        
+        if (withDeadline()) {
+        	if (item.getDeadline() == null) return false;
+        }
 
         if (contextFilter != null && item.getContext() != null &&
             item.getContext() != contextFilter) return false;
@@ -118,5 +123,13 @@ public class GitToDoTreeFilter {
 
 	public boolean isCaseSenstive() {
 		return isCaseSenstive;
+	}
+
+	public void setWithDeadline(boolean withDeadline) {
+		this.withDeadline = withDeadline;
+	}
+
+	public boolean withDeadline() {
+		return this.withDeadline;
 	}
 }
